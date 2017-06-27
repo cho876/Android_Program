@@ -30,13 +30,14 @@ import java.net.URL;
 public class FindidActivity extends AppCompatActivity implements View.OnClickListener {  // "아이디 찾기" 화면
 
     final int[] MY_BUTTONS = {
-            R.id.return_layout,
-            R.id.go_pw_btn
+            R.id.searchId_layout,   // 아이디 검색 btn
+            R.id.return_layout,     // 뒤로가기 btn
+            R.id.go_pw_btn          // 비밀번호 찾기 btn
     };
 
-    private EditText ed_name, ed_email;
-    private String sName, sEmail;
-    private TextView text_id;
+    private EditText ed_name, ed_email;    // 이름, 이메일 기입란
+    private String sName, sEmail;         // EditText -> String 변환 (이름, 이메일)
+    private TextView text_id;             // 아이디 찾기 결과 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,25 +54,13 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-
-    public void onClickSearch(View view) {                // 확인 버튼 누를 시,
-        sName = ed_name.getText().toString();
-        sEmail = ed_email.getText().toString();
-
-        if (UtilCheck.isChecked(sName) && UtilCheck.isChecked(sEmail)) {
-            FindlD_DB findID = new FindlD_DB();
-            findID.execute();
-        } else
-            Toast.makeText(this, "기입란을 채워주시기 바랍니다.", Toast.LENGTH_SHORT).show();
-    }
-
-    public class FindlD_DB extends AsyncTask<Void, Integer, Void> {
+    public class FindlD_DB extends AsyncTask<Void, Integer, Void> {         // AsyncTask를 통한 서버 통신
         String data;
 
         @Override
         protected Void doInBackground(Void... unused) {
 
-            String param = "u_Name=" + sName + "&u_email=" + sEmail + "";
+            String param = "u_name=" + sName + "&u_email=" + sEmail + "";
             try {
                 URL url = new URL(
                         "http://211.253.25.169/findID.php");
@@ -98,10 +87,10 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
                     buff.append(line + "\n");
                 }
                 data = buff.toString().trim();
-                if (data.equals("1"))
-                    Log.e("RESULT", "Success");
-                else
+                if (data.equals(""))                  // php를 통해 값이 아무 것도 오지 않을 경우
                     Log.e("RESULT", "Fail - " + data);
+                else                                // 아이디를 불러올 경우
+                    Log.e("RESULT", "Success");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -113,8 +102,8 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(FindidActivity.this);
-            if (data.equals("")) {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(FindidActivity.this);    // 팝업창 생성
+            if (data.equals("")) {                    // 값이 돌아오지 않을 경우 경고 팝업창
                 alertBuilder
                         .setTitle("알림")
                         .setMessage("회원 정보 없음")
@@ -128,7 +117,7 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
                 AlertDialog dialog = alertBuilder.create();
                 dialog.show();
                 text_id.setText("");
-            } else {
+            } else {                               // 아이디를 받아올 경우
                 Toast.makeText(FindidActivity.this, "회원정보를 찾았습니다.", Toast.LENGTH_SHORT).show();
                 text_id.setText(data);
             }
@@ -138,6 +127,16 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.searchId_layout:
+                sName = ed_name.getText().toString();     // EditText -> String으로 변환
+                sEmail = ed_email.getText().toString();
+
+                if (UtilCheck.isChecked(sName) && UtilCheck.isChecked(sEmail)) {       // 두 EditText 모두 기입할 시,
+                    FindidActivity.FindlD_DB findId = new FindidActivity.FindlD_DB();
+                    findId.execute();
+                } else                                        // 두 EditText 중 하나라도 공백이 있을 시,
+                    Toast.makeText(this, "기입란을 채워주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.go_pw_btn:  // "비밀번호 찾기" 버튼 클릭 시,
                 Intent go_pw = new Intent(FindidActivity.this, FindpwActivity.class);
                 startActivity(go_pw);

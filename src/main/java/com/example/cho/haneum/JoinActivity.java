@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,10 +27,14 @@ import java.net.URL;
 
 public class JoinActivity extends AppCompatActivity implements View.OnClickListener {  // "회원가입" 화면
 
-    private String sModel, sName, sEmail, sId, sPw, sPw_chk;
-    private EditText ed_model, ed_name, ed_email, ed_id, ed_pw, ed_pwchk;
+    private String sName, sEmail, sId, sPw, sPw_chk;
+    private EditText ed_name, ed_email, ed_id, ed_pw, ed_pwchk;
+
+    private SharedPreferences pref = null;
+    private SharedPreferences.Editor editor = null;
 
     final int[] MY_BUTTONS = {
+            R.id.searchId_layout,
             R.id.check_layout,
             R.id.return_layout
     };
@@ -38,12 +43,14 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join);
-        ed_model = (EditText) findViewById(R.id._join_model);
         ed_name = (EditText) findViewById(R.id._join_name);
         ed_id = (EditText) findViewById(R.id._join_id);
         ed_email = (EditText) findViewById(R.id._join_email);
         ed_pw = (EditText) findViewById(R.id._join_pw);
         ed_pwchk = (EditText) findViewById(R.id._join_pwchk);
+
+        pref = getSharedPreferences("settingDB", MODE_PRIVATE);
+        editor = pref.edit();
 
         for (int btnid : MY_BUTTONS) {
             Button btn = (Button) findViewById(btnid);
@@ -54,15 +61,11 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.searchId_layout:
+
             case R.id.check_layout:    // "확인" 화면
-                if (save_DB()) {
-                    Intent go_setting = new Intent(JoinActivity.this, SettingActivity.class);
-                    startActivity(go_setting);
-                    break;
-                } else {
-                    Toast.makeText(this, "정보가 잘못 입력되었습니다.", Toast.LENGTH_SHORT).show();
-                    break;
-                }
+                save_DB();
+                break;
             case R.id.return_layout:  // "돌아가기" 화면
                 Intent go_login = new Intent(JoinActivity.this, LoginActivity.class);
                 UtilCheck.UtilClose(go_login);
@@ -71,35 +74,25 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void Id_btn(View view) {           // 아이디 Check
-
-    }
-
-    public void Email_btn(View view) {       // E-mail Check
-
-    }
-
-    public boolean save_DB() {
-        sModel = ed_model.getText().toString();
+    public void save_DB() {
         sName = ed_name.getText().toString();
         sEmail = ed_email.getText().toString();
         sId = ed_id.getText().toString();
         sPw = ed_pw.getText().toString();
         sPw_chk = ed_pwchk.getText().toString();
 
-        if (UtilCheck.isChecked(sModel) && UtilCheck.isChecked(sName) && UtilCheck.isChecked(sEmail) && UtilCheck.isChecked(sId)    // 빈칸 모두 기입할 시,
+        if (UtilCheck.isChecked(sName) && UtilCheck.isChecked(sEmail) && UtilCheck.isChecked(sId)    // 빈칸 모두 기입할 시,
                 && UtilCheck.isChecked(sPw) && UtilCheck.isChecked(sPw_chk)) {
             if (sPw.equals(sPw_chk)) {
+                editor.putString("Id", sId);
+                editor.commit();
                 registerDB rdb = new registerDB();
                 rdb.execute();
-                return true;
             } else {
                 Toast.makeText(this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-                return false;
             }
         } else {                                                                                                        // 빈칸이 존재할 시,
             Toast.makeText(JoinActivity.this, "회원 정보를 모두 기입해주세요.", Toast.LENGTH_SHORT).show();
-            return false;
         }
     }
 
@@ -112,6 +105,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
     //////////////////////////////////        registerDB            //////////////////////////////////////////
     class registerDB extends AsyncTask<Void, Integer, Void> {
+        String data;
 
         @Override
         protected Void doInBackground(Void... unused) {
@@ -134,7 +128,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
                 InputStream is = null;
                 BufferedReader in = null;
-                String data = "";
+                data = "";
 
                 is = conn.getInputStream();
                 in = new BufferedReader(new InputStreamReader(is), 8 * 1024);
@@ -144,8 +138,9 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                     buff.append(line + "\n");
                 }
                 data = buff.toString().trim();
-                if (data.equals("1"))
+                if (data.equals("1")) {
                     Log.e("RESULT", "Success");
+                }
                 else
                     Log.e("RESULT", "Fail - " + data);
             } catch (MalformedURLException e) {
@@ -154,6 +149,29 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(JoinActivity.this);
+            if (data.equals("1")) {
+                Intent go_setting = new Intent(JoinActivity.this, SettingActivity.class);
+                startActivity(go_setting);
+            } else {
+                alertBuilder
+                        .setTitle("알림")
+                        .setMessage("아이디가 중복됩니다.")
+                        .setCancelable(true)
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                closeOptionsMenu();
+                            }
+                        });
+                AlertDialog dialog = alertBuilder.create();
+                dialog.show();
+            }
         }
     }
 }

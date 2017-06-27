@@ -9,7 +9,7 @@ import com.tsengvn.typekit.Typekit;
  * Created by Cho on 2017-06-18.
  */
 
-public class CustomFont extends Application {
+public class CustomFont extends Application {            // custom 폰트 지정
     @Override
     public void onCreate() {
         super.onCreate();
