@@ -43,7 +43,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CustomTitle" />
         <activity android:name=".CustomEdit" />
-        <activity android:name=".CustomButton"></activity>
+        <activity android:name=".CustomButton" />
+        <activity android:name=".CustomListView"></activity>
     </application>
 
 </manifest>
