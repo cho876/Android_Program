@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.cho.customview.MainActivity">
+
+    <com.example.cho.customview.CustomActivity
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:symbol="@drawable/findid"
+        app:bg="@color/colorPrimaryDark"
+        app:text="Custom View 1"/>
+
+    <com.example.cho.customview.CustomActivity
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        app:symbol="@drawable/setting"
+        app:bg="@color/colorAccent"
+        app:text="Custom View 2"/>
+
+    <com.example.cho.customview.CustomActivity
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        app:symbol="@drawable/join"
+        app:bg="@color/colorPrimary"
+        app:text="Custom View 3"/>
+</LinearLayout>
