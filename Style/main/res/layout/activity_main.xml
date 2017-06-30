@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- style.xml에서 지정한 layout_main으로 LinearLayout 설정 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    style="@style/layout_main"
+    tools:context="com.example.cho.style.MainActivity">
+
+    <!-- style.xml에서 지정한 style_text로 TextView 설정 -->
+    <TextView
+        style="@style/style_text"
+        android:text="style Text 1"/>
+
+    <!-- style.xml에서 지정한 style_text로 TextView 설정 -->
+    <TextView
+        style="@style/style_text"
+        android:text="style text 2"/>
+</LinearLayout>
