@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     private EditText ed_id, ed_pw = null;
     private CheckBox cb_id = null;
     private String sId, sPw;
+    private boolean saveId = true;
 
     private SharedPreferences pref = null;
     private SharedPreferences.Editor editor = null;
@@ -53,9 +54,14 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         ed_pw = (EditText) findViewById(R.id._login_pw);
         cb_id = (CheckBox) findViewById(R.id._login_chk);
 
+
         pref = getSharedPreferences("settingDB", MODE_PRIVATE);
         editor = pref.edit();
-        onChecked();
+
+        saveId = pref.getBoolean("check", false);              // 체크 박스 현재 상태 true/false 저장 (Boolean)
+
+        checkBoxID(saveId);                      //  아이디 자동 입력 기능
+
         quitHandler = new QuitHandler(this);
 
         for (int btnId : MY_BUTTONS) {
@@ -66,10 +72,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         btn.setOnClickListener(this);
     }
 
-    public void onChecked() {
-        if (cb_id.isChecked()) {
-            sId = pref.getString("Id", "");
-            ed_id.setText(sId);
+    public void checkBoxID(boolean saveId) {            // 아이디 자동 입력 기능
+        if (saveId) {
+            String id = pref.getString("Id", "");
+            ed_id.setText(id);
+            cb_id.setChecked(saveId);
         }
     }
 
@@ -202,4 +209,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         quitHandler.onBackPressed();
     }    // "Back"버튼 두 번 누를 시, 프로그램 종료
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        editor.putBoolean("check", cb_id.isChecked());
+        editor.commit();
+    }
 }

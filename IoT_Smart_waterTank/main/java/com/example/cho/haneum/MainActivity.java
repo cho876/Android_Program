@@ -21,6 +21,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {  // 메인 화면
 
@@ -32,10 +34,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
     private TextView t_title, t_settemp, t_setturb, t_setlevel;
+    private TextView t_curtemp, t_curturb, t_curlevel;
     private String sTemp, sTurb, sLevel, sId;
     private String title, data;
     private SharedPreferences pref = null;
     private QuitHandler quitHandler;
+    private Thread th;
+    private boolean isChecked = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         t_settemp = (TextView) findViewById(R.id._main_settemp);
         t_setturb = (TextView) findViewById(R.id._main_setturb);
         t_setlevel = (TextView) findViewById(R.id._main_setlevel);
+        t_curtemp = (TextView)findViewById(R.id._main_curtemp);
+        t_curturb = (TextView)findViewById(R.id._main_curturb);
+        t_curlevel = (TextView)findViewById(R.id._main_curlevel);
 
         pref = getSharedPreferences("settingDB", MODE_PRIVATE);
 
@@ -54,8 +62,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Button btn = (Button) findViewById(btnid);
             btn.setOnClickListener(this);
         }
+
+        th = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (isChecked) {
+                    Find_DB find_db = new Find_DB();
+                    find_db.execute();
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        th.start();
+
         displaySetDB displaySetDB = new displaySetDB();
         displaySetDB.execute();
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        isChecked = false;
     }
 
     class displaySetDB extends AsyncTask<Void, Integer, Void> {
@@ -140,6 +171,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.quit_layout:   // "종료" 버튼 클릭 시,
                 quitHandler.onBackPressed();
+        }
+    }
+
+    public class Find_DB extends AsyncTask<Void, Integer, Void> {         // AsyncTask를 통한 서버 통신
+        String data;
+        String sId = pref.getString("Id", "");
+
+        @Override
+        protected Void doInBackground(Void... unused) {
+
+            String param = "u_id=" + sId + "";
+            try {
+                URL url = new URL(
+                        "http://211.253.25.169/display.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.connect();
+
+                OutputStream outs = conn.getOutputStream();
+                outs.write(param.getBytes("UTF-8"));
+                outs.flush();
+                outs.close();
+
+                InputStream is = null;
+                BufferedReader in = null;
+                data = "";
+
+                is = conn.getInputStream();
+                in = new BufferedReader(new InputStreamReader(is), 8 * 1024);
+                String line = null;
+                StringBuffer buff = new StringBuffer();
+                while ((line = in.readLine()) != null) {
+                    buff.append(line + "\n");
+                }
+                data = buff.toString().trim();
+                if (data.equals(""))                  // php를 통해 값이 아무 것도 오지 않을 경우
+                    Log.e("RESULT", "Fail - " + data);
+                else {                       // 아이디를 불러올 경우
+                    Log.e("RESULT", "Success");
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            String[] array = data.split(",");
+            sTemp = array[0];
+            sTurb = array[1];
+            sLevel = array[2];
+            if(!data.equals("")){
+                t_curtemp.setText(sTemp);
+                t_curturb.setText(sTurb);
+                t_curlevel.setText(sLevel);
+            }
         }
     }
 

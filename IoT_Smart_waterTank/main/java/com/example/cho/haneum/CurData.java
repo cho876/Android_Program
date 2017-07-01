@@ -11,36 +11,37 @@ import org.w3c.dom.Text;
 
 public class CurData {
 
-    //private Drawable icon;
-    private String sTemp, sTurb, sLevel;
+    private String sTemp, sTurb, sLevel, sDate;
 
-    /*public void setIcon(Drawable icon){
-        this.icon = icon;
-    }
-
-    public Drawable getIcon(){return icon;}
-*/
-    public void setTemp(String sTemp){
+    public void setTemp(String sTemp) {
         this.sTemp = sTemp;
     }
 
-    public String getTemp(){
+    public String getTemp() {
         return sTemp;
     }
 
-    public void setTurb(String sTurb){
+    public void setTurb(String sTurb) {
         this.sTurb = sTurb;
     }
 
-    public String getTurb(){
+    public String getTurb() {
         return sTurb;
     }
 
-    public void setLevel(String sLevel){
+    public void setLevel(String sLevel) {
         this.sLevel = sLevel;
     }
 
-    public String getLevel(){
+    public String getLevel() {
         return sLevel;
+    }
+
+    public String getDate() {
+        return sDate;
+    }
+
+    public void setDate(String sDate) {
+        this.sDate = sDate;
     }
 }

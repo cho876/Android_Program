@@ -44,7 +44,7 @@
         <activity android:name=".CustomTitle" />
         <activity android:name=".CustomEdit" />
         <activity android:name=".CustomButton" />
-        <activity android:name=".CustomListView"></activity>
+        <activity android:name=".CustomFrame" />
     </application>
 
 </manifest>

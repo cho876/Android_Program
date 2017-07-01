@@ -1,14 +1,10 @@
 package com.example.cho.haneum;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -21,7 +17,7 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter {
 
-    private ArrayList<CurData> mData = new ArrayList<>();
+    private static ArrayList<CurData> mData = new ArrayList<>();
 
     @Override
     public int getCount() {
@@ -47,28 +43,28 @@ public class CustomAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.activity_custom_list_view, viewGroup, false);
         }
 
-        //ImageView iv_icon = (ImageView)convertView.findViewById(R.id.customlist_setting_img);
         TextView tvTemp = (TextView) convertView.findViewById(R.id.customlist_temp);
         TextView tvTurb = (TextView) convertView.findViewById(R.id.customlist_turb);
         TextView tvLevel = (TextView) convertView.findViewById(R.id.customlist_level);
+        TextView tvDate = (TextView) convertView.findViewById(R.id.customlist_time);
 
         CurData curData = getItem(index);
 
-        //iv_icon.setImageDrawable(curData.getIcon());
         tvTemp.setText(curData.getTemp());
         tvTurb.setText(curData.getTurb());
         tvLevel.setText(curData.getLevel());
+        tvDate.setText(curData.getDate());
 
         return convertView;
     }
 
-    public void addItem(String temp, String turb, String level) {
+    public void addItem(String temp, String turb, String level, String date) {
         CurData curData = new CurData();
 
-        //curData.setIcon(icon);
         curData.setTemp(temp);
         curData.setTurb(turb);
         curData.setLevel(level);
+        curData.setDate(date);
 
         mData.add(curData);
     }

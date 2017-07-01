@@ -20,4 +20,10 @@
         <attr name="btn_left_img" format="reference|integer" />
         <attr name="btn_right_img" format="reference|integer" />
     </declare-styleable>
+
+    <!-- 전체 배경 틀 Custom View -->
+    <declare-styleable name="FrameAttrs">
+        <attr name="frame_out_bg" format="reference|integer" />
+        <attr name="frame_in_bg" format="reference|integer" />
+    </declare-styleable>
 </resources>
