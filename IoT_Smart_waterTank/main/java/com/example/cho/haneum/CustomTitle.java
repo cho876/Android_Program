@@ -67,11 +67,5 @@ public class CustomTitle extends LinearLayout {
         typedArray.recycle();
     }
 
-    public void setSymbol(int symbol_res){
-        symbol.setImageResource(symbol_res);
-    }
-
-    public void setTextView(String sText){
-        textView.setText(sText);
-    }
+    public TextView getTitle(){return textView;}
 }

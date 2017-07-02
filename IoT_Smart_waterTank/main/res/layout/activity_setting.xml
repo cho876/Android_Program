@@ -43,15 +43,6 @@
                 android:padding="10dp"
                 app:edit_hint="정수 단위"
                 app:edit_text="탁도" />
-
-            <com.example.cho.haneum.CustomEdit
-                android:id="@+id/custom_setting_level"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:padding="10dp"
-                app:edit_hint="정수 단위"
-                app:edit_text="수위" />
         </LinearLayout>
 
         <!-- 하단부 버튼란 Custom View -->

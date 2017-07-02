@@ -31,7 +31,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private Button bLeft, bRight;
     private EditText ed_temp = null;     // 온도 EditText
     private EditText ed_turb = null;    // 탁도 EditText
-    private EditText ed_level = null;    // 물의 양 EditText
     private SharedPreferences pref = null;
     private SharedPreferences.Editor editor = null;
     private CustomEdit customEdit;
@@ -48,9 +47,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         customEdit = (CustomEdit) findViewById(R.id.custom_setting_turb);
         ed_turb = customEdit.getEditText();   // xml의 탁도 EditText id
-
-        customEdit = (CustomEdit) findViewById(R.id.custom_setting_level);
-        ed_level = customEdit.getEditText();   // xml의 물의 양 EditText id
 
         customButton = (CustomButton) findViewById(R.id.custom_setting_btn);
         bLeft = customButton.getLeftBtn();
@@ -78,9 +74,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         sId = pref.getString("Id", "");
         sTemp = ed_temp.getText().toString();
         sTurb = ed_turb.getText().toString();
-        sLevel = ed_level.getText().toString();
 
-        if (UtilCheck.isChecked(sId) && UtilCheck.isChecked(sTemp) && UtilCheck.isChecked(sTurb) && UtilCheck.isChecked(sLevel)) {
+        if (UtilCheck.isChecked(sId) && UtilCheck.isChecked(sTemp) && UtilCheck.isChecked(sTurb)) {
             SetDB setDB = new SetDB();
             setDB.execute();
         }
@@ -91,7 +86,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
         @Override
         protected Void doInBackground(Void... unused) {
-            String param = "u_id=" + sId + "&u_temp=" + sTemp + "&u_turb=" + sTurb + "&u_level=" + sLevel + "";
+            String param = "u_id=" + sId + "&u_temp=" + sTemp + "&u_turb=" + sTurb + "";
 
             try {
                 URL url = new URL(
@@ -137,10 +132,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             super.onPostExecute(aVoid);
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(SettingActivity.this);
             if (data.equals("1")) {
-                editor.putString("Temp", sTemp);
-                editor.putString("Turb", sTurb);
-                editor.putString("Level", sLevel);
-                editor.commit();
                 Toast.makeText(SettingActivity.this, "성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 Intent go_main = new Intent(SettingActivity.this, MainActivity.class);
                 startActivity(go_main);

@@ -27,9 +27,6 @@
             android:name=".SettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".WeatherActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -45,6 +42,7 @@
         <activity android:name=".CustomEdit" />
         <activity android:name=".CustomButton" />
         <activity android:name=".CustomFrame" />
+        <activity android:name=".CustomTable"></activity>
     </application>
 
 </manifest>

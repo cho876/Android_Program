@@ -4,7 +4,8 @@
     <!-- 상단부 메뉴란 Custom View -->
     <declare-styleable name="TitleAttrs">
         <attr name="title_text" format="string" />
-        <attr name="title_symbol" format="reference|integer" />
+        <attr name="title_symbol" format="reference|integer"/>
+        <attr name="title_textSize" format="reference|integer"/>
     </declare-styleable>
 
     <!-- 중단부 사용자 세부사항 기입란 Custom View -->
@@ -21,9 +22,14 @@
         <attr name="btn_right_img" format="reference|integer" />
     </declare-styleable>
 
-    <!-- 전체 배경 틀 Custom View -->
-    <declare-styleable name="FrameAttrs">
-        <attr name="frame_out_bg" format="reference|integer" />
-        <attr name="frame_in_bg" format="reference|integer" />
+    <!-- 수조 관리 상태 View Custom View -->
+    <declare-styleable name="TableAttrs">
+        <attr name="table_limg" format="reference|integer" />
+        <attr name="table_left_title" format="string"/>
+        <attr name="table_left_contents" format="string"/>
+        <attr name="table_rimg" format="reference|integer" />
+        <attr name="table_right_title" format="string"/>
+        <attr name="table_right_contents" format="string"/>
     </declare-styleable>
+
 </resources>

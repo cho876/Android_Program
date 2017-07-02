@@ -21,8 +21,10 @@ import java.net.URL;
 
 public class UtilCheck {            // EditText 창에 미 입력칸 존재 시, false
     public static boolean isChecked(String data) {
-        if (data.equals(""))
-            return false;
+        if (data.equals("")) {
+            data = "0";
+            return true;
+        }
         else
             return true;
     }

@@ -28,40 +28,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     final int[] MY_BUTTONS = {
             R.id.register_layout,
-            R.id.weather_layout,
             R.id.logout_layout,
             R.id.quit_layout
     };
 
-    private TextView t_title, t_settemp, t_setturb, t_setlevel;
-    private TextView t_curtemp, t_curturb, t_curlevel;
-    private String sTemp, sTurb, sLevel, sId;
-    private String title, data;
+    private TextView t_title, tv_temp, tv_turb, tv_level, tv_heat, tv_in, tv_out;   // 핸드폰 UI View Textview
+    private String sTemp, sTurb, sLevel, sHeat, sIn, sOut;                    // 현재 온도, 탁도 ,수위, 히터, 급수, 배수 센서 상태
+
+    private String setTemp, setTurb;        // 설정 온도 및 탁도 값
+    private String title;                  // title: 아이디
     private SharedPreferences pref = null;
     private QuitHandler quitHandler;
     private Thread th;
     private boolean isChecked = true;
+    private CustomTitle customTitle;
+    private CustomTable customTable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        t_title = (TextView) findViewById(R.id._main_title);
-        t_settemp = (TextView) findViewById(R.id._main_settemp);
-        t_setturb = (TextView) findViewById(R.id._main_setturb);
-        t_setlevel = (TextView) findViewById(R.id._main_setlevel);
-        t_curtemp = (TextView)findViewById(R.id._main_curtemp);
-        t_curturb = (TextView)findViewById(R.id._main_curturb);
-        t_curlevel = (TextView)findViewById(R.id._main_curlevel);
+
+        customTitle = (CustomTitle) findViewById(R.id.custom_main_title);
+        t_title = customTitle.getTitle();
 
         pref = getSharedPreferences("settingDB", MODE_PRIVATE);
+        title = pref.getString("Id", "");
+        t_title.setText(title + "'s\n어항 관리");
+        t_title.setTextSize(20);
+
+        customTable = (CustomTable) findViewById(R.id.custom_main_temp);         // 수온 수치 TextViw
+        tv_temp = customTable.getTv_lcontents();
+        tv_heat = customTable.getTv_rcontents();
+
+        customTable = (CustomTable) findViewById(R.id.custom_main_turb);        // 탁도 수치 TextView
+        tv_turb = customTable.getTv_lcontents();
+        tv_out = customTable.getTv_rcontents();
+
+        customTable = (CustomTable) findViewById(R.id.custom_main_level);        // 탁도 수치 TextView
+        tv_level = customTable.getTv_lcontents();
+        tv_in = customTable.getTv_rcontents();
+
 
         quitHandler = new QuitHandler(this);
         for (int btnid : MY_BUTTONS) {
             Button btn = (Button) findViewById(btnid);
             btn.setOnClickListener(this);
         }
+
+        displaySetDB displaySetDB = new displaySetDB();
+        displaySetDB.execute();
 
         th = new Thread(new Runnable() {
             @Override
@@ -78,22 +96,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         th.start();
-
-        displaySetDB displaySetDB = new displaySetDB();
-        displaySetDB.execute();
-    }
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        isChecked = false;
     }
 
     class displaySetDB extends AsyncTask<Void, Integer, Void> {
-
+        String data;
         @Override
         protected Void doInBackground(Void... unused) {
-            title = pref.getString("Id", "");
             String param = "u_id=" + title + "";
 
             try {
@@ -105,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 conn.setDoInput(true);
                 conn.connect();
 
-                /* 안드로이드 -> 서버 파라메터 값 전달*/
                 OutputStream outs = conn.getOutputStream();
                 outs.write(param.getBytes("UTF-8"));
                 outs.flush();
@@ -144,12 +151,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             sTemp = array[0];
             sTurb = array[1];
-            sLevel = array[2];
 
-            t_title.setText(title + "'s\n어항 관리");
-            t_settemp.setText(sTemp);
-            t_setturb.setText(sTurb);
-            t_setlevel.setText(sLevel);
+            setTemp = sTemp + " / ";
+            setTurb = sTurb + " / ";
+            tv_temp.setText(setTemp);             // 설정 값으로 온도 TextView 수정
+            tv_turb.setText(setTurb);             // 설정 값으로 탁도 TextView 수정
         }
     }
 
@@ -158,11 +164,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.register_layout:   // "재등록" 버튼 클릭 시,
                 Intent go_setting = new Intent(MainActivity.this, SettingActivity.class);
+                UtilCheck.UtilClose(go_setting);
                 startActivity(go_setting);
-                break;
-            case R.id.weather_layout:   // "현재 날씨" 버튼 클릭 시,
-                Intent go_weather = new Intent(MainActivity.this, WeatherActivity.class);
-                startActivity(go_weather);
                 break;
             case R.id.logout_layout:   // "로그 아웃" 버튼 클릭 시,
                 Intent go_login = new Intent(MainActivity.this, LoginActivity.class);
@@ -221,18 +224,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return null;
         }
 
+
+        public void onOffSet(TextView tv, String value) {          // On/Off 상태 UI 변경 함수
+            if (value.equals("0"))
+                tv.setText("비동작 중");
+            else
+                tv.setText("동작 중");
+        }
+
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            String[] array = data.split(",");
+            String[] array = data.split(",");         // 현재 온도, 탁도 값 및 수위, 히터, 급수, 배수 제어상태 받아옴
             sTemp = array[0];
             sTurb = array[1];
             sLevel = array[2];
-            if(!data.equals("")){
-                t_curtemp.setText(sTemp);
-                t_curturb.setText(sTurb);
-                t_curlevel.setText(sLevel);
-            }
+            sHeat = array[3];
+            sIn = array[4];
+            sOut = array[5];
+
+            tv_temp.setText(setTemp + sTemp);       // 설정 온도 + 현재 온도 값으로 온도 TextView Set
+            tv_turb.setText(setTurb + sTurb);       // 설정 탁도 + 현재 탁도 값으로 탁도 TextView Set
+            onOffSet(tv_level, sLevel);        // 현재 수위 제어 상태 처리 (0: 비동작 / else: 동작)
+            onOffSet(tv_heat, sHeat);      // 현재 히터 제어 상태 처리 (0: 비동작 / else: 동작)
+            onOffSet(tv_in, sIn);      // 현재 급수 제어 상태 처리 (0: 비동작 / else: 동작)
+            onOffSet(tv_out, sOut);      // 현재 배수 제어 상태 처리 (0: 비동작 / else: 동작)
         }
     }
 
@@ -244,5 +260,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onDestroy() {         // 액티비티 사라질 시, thread 정지
+        super.onDestroy();
+        isChecked = false;
     }
 }

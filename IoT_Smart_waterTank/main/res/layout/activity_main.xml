@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     style="@style/layout_top"
@@ -13,28 +14,14 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <LinearLayout
+        <!-- 상단부 Title 란 Custom View -->
+        <com.example.cho.haneum.CustomTitle
+            android:id="@+id/custom_main_title"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:src="@drawable/home" />
-
-            <TextView
-                android:id="@+id/_main_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="7"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:textSize="25sp" />
-        </LinearLayout>
+            android:orientation="horizontal"
+            app:title_symbol="@drawable/home" />
 
         <View
             android:layout_width="match_parent"
@@ -42,183 +29,39 @@
             android:layout_marginTop="10dp"
             android:background="#FFFFFF" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="5"
-            android:background="#5a5a5a"
-            android:orientation="vertical"
-            android:padding="10dp">
+        <!-- 중단부 수치 제어 View -->
+        <LinearLayout style="@style/layout_mid">
 
-            <LinearLayout
+            <com.example.cho.haneum.CustomTable
+                android:id="@+id/custom_main_temp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:table_left_title="온도"
+                app:table_limg="@drawable/temp"
+                app:table_right_title="히터"
+                app:table_rimg="@drawable/heater" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginBottom="5dp"
-                    android:text="(현재 / 설정)"
-                    android:textColor="#FFFFFF"
-                    android:textSize="10sp" />
+            <com.example.cho.haneum.CustomTable
+                android:id="@+id/custom_main_turb"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:table_left_title="탁도"
+                app:table_limg="@drawable/level"
+                app:table_right_title="배수"
+                app:table_rimg="@drawable/out" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_shape"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
+            <com.example.cho.haneum.CustomTable
+                android:id="@+id/custom_main_level"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:table_left_title="수위"
+                app:table_limg="@drawable/level"
+                app:table_right_title="급수"
+                app:table_rimg="@drawable/input" />
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:src="@drawable/temp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left|bottom"
-                        android:text="(온도)"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:id="@+id/_main_settemp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="/"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:id="@+id/_main_curtemp"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:textSize="25sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_shape"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:src="@drawable/turb" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left|bottom"
-                        android:text="(탁도)"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:id="@+id/_main_setturb"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="/"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:id="@+id/_main_curturb"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:textSize="25sp" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@drawable/round_shape"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:src="@drawable/level" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left|bottom"
-                        android:text="(물의 양)"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:id="@+id/_main_setlevel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="/"
-                        android:textSize="25sp" />
-
-                    <TextView
-                        android:id="@+id/_main_curlevel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="3"
-                        android:gravity="center"
-                        android:textSize="25sp" />
-                </LinearLayout>
-            </LinearLayout>
         </LinearLayout>
 
         <View
@@ -227,10 +70,10 @@
             android:layout_marginTop="10dp"
             android:background="#FFFFFF" />
 
+        <!-- 하단부 버튼 View -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
             android:layout_weight="2"
             android:orientation="horizontal">
 
@@ -245,43 +88,22 @@
                 android:drawableStart="@drawable/logout_btn"
                 android:padding="10dp"
                 android:text="재등록"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/weather_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_shape"
-                android:drawableLeft="@drawable/weather_btn"
-                android:drawableStart="@drawable/weather_btn"
-                android:padding="10dp"
-                android:text="현재 날씨"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/logout_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_shape"
                 android:drawableLeft="@drawable/logout_btn"
                 android:drawableStart="@drawable/logout_btn"
                 android:padding="10dp"
                 android:text="로그아웃"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
 
             <Button
@@ -289,14 +111,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/round_shape"
                 android:drawableLeft="@drawable/quit_btn"
                 android:drawableStart="@drawable/quit_btn"
                 android:padding="10dp"
                 android:text="종료"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
