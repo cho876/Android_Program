@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 버튼 Custom View-->
+    <declare-styleable name="BtnAttrs">
+        <attr name="btn_flame" format="reference|integer"/>
+        <attr name="btn_content" format="string"/>
+    </declare-styleable>
+
+    <!-- EditText Custom View -->
+    <declare-styleable name="EditAttrs">
+        <attr name="edit_title" format="string"/>
+        <attr name="edit_drawable" format="reference|integer"/>
+        <attr name="edit_hint" format="string"/>
+    </declare-styleable>
+
+    <!-- 이미지 버튼 Custom View -->
+    <declare-styleable name="ImgbtnAttrs">
+        <attr name="imgbtn_symbol" format="reference|integer"/>
+        <attr name="imgbtn_title" format="string"/>
+    </declare-styleable>
+
+    <!-- 상단부 타이틀 Custom View -->
+    <declare-styleable name="TitleAttrs">
+        <attr name="title_symbol" format="reference|integer"/>
+        <attr name="title_title" format="string"/>
+    </declare-styleable>
+</resources>

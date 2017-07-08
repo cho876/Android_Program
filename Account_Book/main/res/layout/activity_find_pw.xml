@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_find_pw"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_bg"
+    android:orientation="vertical"
+    tools:context="com.example.cho.account_book.FindPWActivity">
+
+    <com.example.cho.account_book.CustomTitle
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        app:title_symbol="@drawable/vec_find"
+        app:title_title="비밀번호 찾기" />
+
+    <com.example.cho.account_book.CustomEdit
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:edit_drawable="@drawable/vec_id"
+        app:edit_hint="정확히 기입해주세요."
+        app:edit_title="이름" />
+
+    <com.example.cho.account_book.CustomEdit
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:edit_drawable="@drawable/vec_id"
+        app:edit_hint="정확히 기입해주세요."
+        app:edit_title="이메일" />
+
+    <Button
+        android:id="@+id/login_btn"
+        style="@style/ButtonStyle_vertical"
+        android:layout_marginTop="10dp"
+        android:text="Sign In"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <com.example.cho.account_book.CustomImgBtn
+            android:id="@+id/findpwTofindid_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            app:imgbtn_symbol="@drawable/vec_left"
+            app:imgbtn_title="아이디 찾기" />
+
+        <com.example.cho.account_book.CustomImgBtn
+            android:id="@+id/findpwTologin_btn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:layout_weight="1"
+            app:imgbtn_symbol="@drawable/vec_right"
+            app:imgbtn_title="돌아가기" />
+    </LinearLayout>
+</LinearLayout>
