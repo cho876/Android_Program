@@ -12,6 +12,7 @@
     <declare-styleable name="EditAttrs">
         <attr name="edit_text" format="string" />
         <attr name="edit_hint" format="string" />
+        <attr name="edit_inputType" format="reference|integer"/>
     </declare-styleable>
 
     <!-- 하단부 Button Custom View -->

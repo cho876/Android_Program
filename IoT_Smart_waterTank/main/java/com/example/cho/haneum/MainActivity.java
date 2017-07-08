@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             R.id.quit_layout
     };
 
-    private TextView t_title, tv_temp, tv_turb, tv_level, tv_heat, tv_in, tv_out;   // 핸드폰 UI View Textview
-    private String sTemp, sTurb, sLevel, sHeat, sIn, sOut;                    // 현재 온도, 탁도 ,수위, 히터, 급수, 배수 센서 상태
+    private TextView t_title, tv_temp, tv_turb, tv_level, tv_heat, tv_in, tv_out;   // 핸드폰 UI Textview
+    private String sTemp, sTurb, sLevel, sHeat, sIn, sOut;                    // Cast TextView -> String
 
     private String setTemp, setTurb;        // 설정 온도 및 탁도 값
     private String title;                  // title: 아이디
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         customTitle = (CustomTitle) findViewById(R.id.custom_main_title);
         t_title = customTitle.getTitle();
@@ -154,8 +153,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             setTemp = sTemp + " / ";
             setTurb = sTurb + " / ";
-            tv_temp.setText(setTemp);             // 설정 값으로 온도 TextView 수정
-            tv_turb.setText(setTurb);             // 설정 값으로 탁도 TextView 수정
         }
     }
 
@@ -164,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.register_layout:   // "재등록" 버튼 클릭 시,
                 Intent go_setting = new Intent(MainActivity.this, SettingActivity.class);
-                UtilCheck.UtilClose(go_setting);
                 startActivity(go_setting);
                 break;
             case R.id.logout_layout:   // "로그 아웃" 버튼 클릭 시,
@@ -175,6 +171,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.quit_layout:   // "종료" 버튼 클릭 시,
                 quitHandler.onBackPressed();
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {    // 폰트 설정
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {
+        quitHandler.onBackPressed();
+    }    // "Back"버튼 두 번 누를 시, 프로그램 종료
+
+    @Override
+    public void onDestroy() {         // 액티비티 사라질 시, thread 정지
+        super.onDestroy();
+        isChecked = false;
     }
 
     public class Find_DB extends AsyncTask<Void, Integer, Void> {         // AsyncTask를 통한 서버 통신
@@ -251,20 +263,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             onOffSet(tv_out, sOut);      // 현재 배수 제어 상태 처리 (0: 비동작 / else: 동작)
         }
     }
-
-    @Override
-    public void onBackPressed() {
-        quitHandler.onBackPressed();
-    }    // "Back"버튼 두 번 누를 시, 프로그램 종료
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-    }
-
-    @Override
-    public void onDestroy() {         // 액티비티 사라질 시, thread 정지
-        super.onDestroy();
-        isChecked = false;
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 }

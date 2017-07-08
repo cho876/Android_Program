@@ -66,6 +66,9 @@ public class CustomEdit extends LinearLayout {
         String sHint = typedArray.getString(R.styleable.EditAttrs_edit_hint);     // EditView Set
         editText.setHint(sHint);
 
+        int inputType = typedArray.getResourceId(R.styleable.EditAttrs_edit_inputType, 0x00000001);
+        editText.setInputType(inputType);
+
         typedArray.recycle();
     }
 

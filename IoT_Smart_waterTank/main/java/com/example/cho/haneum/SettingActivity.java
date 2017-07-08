@@ -62,7 +62,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_right:   // "확인" 버튼 클릭 시,
-                saveDB();  // 데이터 저장
+                writeToDB();  // 데이터 저장
                 break;
             case R.id.button_left:  // "돌아가기" 화면
                 this.finish();
@@ -70,18 +70,35 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void saveDB() {              // EditText의 입력 값 SharedPreferences에 저장
-        sId = pref.getString("Id", "");
+    public boolean isWrited(String... str) {           // 기입란 모두 작성 완료 판별 Func
+        for (String edit : str) {
+            if (!UtilCheck.isChecked(edit))
+                return false;
+        }
+        return true;
+    }
+
+    public void writeToDB() {         // DB 내, 저장 Func
+        sId = pref.getString("Id", "");          // 기존에 저장된 ID 호출 및 저장 (Key 역할)
         sTemp = ed_temp.getText().toString();
         sTurb = ed_turb.getText().toString();
 
-        if (UtilCheck.isChecked(sId) && UtilCheck.isChecked(sTemp) && UtilCheck.isChecked(sTurb)) {
-            SetDB setDB = new SetDB();
-            setDB.execute();
+        if (isWrited(sId, sTemp, sTurb)) {
+            JoinDB joinDB = new JoinDB();
+            joinDB.execute();
         }
     }
 
-    public class SetDB extends AsyncTask<Void, Integer, Void> {
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    //////////////////////////////////        JoinDB            ////////////////////////////////////
+
+    /*     AsyncTask를 통한 Threading 작업 class     */
+
+    public class JoinDB extends AsyncTask<Void, Integer, Void> {
         private String data;
 
         @Override
@@ -134,8 +151,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             if (data.equals("1")) {
                 Toast.makeText(SettingActivity.this, "성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 Intent go_main = new Intent(SettingActivity.this, MainActivity.class);
+                UtilCheck.UtilClose(go_main);
                 startActivity(go_main);
-                SettingActivity.this.finish();
             } else {
                 alertBuilder
                         .setTitle("알림")
@@ -152,10 +169,5 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
     }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-    }
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 }

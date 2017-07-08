@@ -41,7 +41,6 @@
         <activity android:name=".CustomTitle" />
         <activity android:name=".CustomEdit" />
         <activity android:name=".CustomButton" />
-        <activity android:name=".CustomFrame" />
         <activity android:name=".CustomTable"></activity>
     </application>
 

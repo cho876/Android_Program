@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 비밀번호 찾기 XML -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,9 +24,10 @@
             app:title_symbol="@drawable/findpw"
             app:title_text="비밀번호 찾기" />
 
+        <!-- 중단부 LinearLayout -->
         <LinearLayout style="@style/layout_mid">
 
-            <!-- 중단부 사용자 기입란 Custom View -->
+            <!-- 이메일 기입란 Custom View -->
             <com.example.cho.haneum.CustomEdit
                 android:id="@+id/custom_findPw_Email"
                 android:layout_width="match_parent"
@@ -33,6 +36,7 @@
                 app:edit_hint="정확히 기입해주세요."
                 app:edit_text="이메일" />
 
+            <!-- 아이디 기입란 Custom View -->
             <com.example.cho.haneum.CustomEdit
                 android:id="@+id/custom_findPw_Id"
                 android:layout_width="match_parent"
@@ -41,20 +45,16 @@
                 app:edit_hint="정확히 기입해주세요."
                 app:edit_text="아이디" />
 
+            <!-- 확인 버튼 -->
             <Button
                 android:id="@+id/searchpw_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#5a5a5a"
-                android:text="확인"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                style="@style/btn_style" />
 
+            <!-- 비밀번호 찾기 결과 창 -->
             <TextView
                 android:id="@+id/_findpw_search"
-                style="@style/search_style" />
+                style="@style/search_style"
+                android:text="(비밀번호 확인 결과란)" />
         </LinearLayout>
 
         <!-- 하단부 버튼란 Custom View -->

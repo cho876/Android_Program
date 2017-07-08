@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 수조 설정 화면 XML -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -33,7 +35,9 @@
                 android:layout_weight="1"
                 android:padding="10dp"
                 app:edit_hint="정수 단위"
+                app:edit_inputType="0x00000002"
                 app:edit_text="온도" />
+
 
             <com.example.cho.haneum.CustomEdit
                 android:id="@+id/custom_setting_turb"
@@ -42,6 +46,7 @@
                 android:layout_weight="1"
                 android:padding="10dp"
                 app:edit_hint="정수 단위"
+                app:edit_inputType="0x00000002"
                 app:edit_text="탁도" />
         </LinearLayout>
 

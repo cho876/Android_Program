@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 아이디 찾기 XML -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +16,7 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-          <!-- 상단부 Title 란 Custom View -->
+        <!-- 상단부 Title 란 Custom View -->
         <com.example.cho.haneum.CustomTitle
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -25,7 +27,7 @@
 
         <LinearLayout style="@style/layout_mid">
 
-            <!-- 중단부 사용자 기입란 Custom View -->
+            <!-- 이름 기입란 Custom View -->
             <com.example.cho.haneum.CustomEdit
                 android:id="@+id/custom_findId_Name"
                 android:layout_width="match_parent"
@@ -34,6 +36,7 @@
                 app:edit_hint="정확히 기입해주세요."
                 app:edit_text="이름" />
 
+            <!-- 이메일 기입란 Custom View -->
             <com.example.cho.haneum.CustomEdit
                 android:id="@+id/custom_findId_Email"
                 android:layout_width="match_parent"
@@ -42,20 +45,16 @@
                 app:edit_hint="정확히 기입해주세요."
                 app:edit_text="이메일" />
 
+            <!-- 확인 버튼 -->
             <Button
                 android:id="@+id/searchId_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#5a5a5a"
-                android:text="확인"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                style="@style/btn_style" />
 
+            <!-- 아이디 찾기 결과 창 -->
             <TextView
                 android:id="@+id/_findid_search"
-                style="@style/search_style" />
+                style="@style/search_style"
+                android:text="(아이디 확인 결과란)"/>
 
         </LinearLayout>
 

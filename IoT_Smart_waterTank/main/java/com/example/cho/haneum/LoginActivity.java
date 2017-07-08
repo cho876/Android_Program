@@ -53,14 +53,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         ed_id = (EditText) findViewById(R.id._login_id);
         ed_pw = (EditText) findViewById(R.id._login_pw);
         cb_id = (CheckBox) findViewById(R.id._login_chk);
-
+        saveId = pref.getBoolean("check", false);              // 체크 박스 현재 상태 true/false 저장 (Boolean)
+        FixedID(saveId);                      //  아이디 자동 입력 기능
 
         pref = getSharedPreferences("settingDB", MODE_PRIVATE);
         editor = pref.edit();
-
-        saveId = pref.getBoolean("check", false);              // 체크 박스 현재 상태 true/false 저장 (Boolean)
-
-        checkBoxID(saveId);                      //  아이디 자동 입력 기능
 
         quitHandler = new QuitHandler(this);
 
@@ -72,9 +69,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         btn.setOnClickListener(this);
     }
 
-    public void checkBoxID(boolean saveId) {            // 아이디 자동 입력 기능
-        if (saveId) {
-            String id = pref.getString("Id", "");
+    public void FixedID(boolean saveId) {            // 아이디 자동 입력 기능
+        if (saveId) {   // Check 상태 true일 경우,
+            String id = pref.getString("Id", "");  // 기존에 저장되어있던 ID 불러와 출력
             ed_id.setText(id);
             cb_id.setChecked(saveId);
         }
@@ -84,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_layout:    // "로그인" 버튼 클릭 시,
-                CheckEdit();
+                writeToDB();
                 break;
             case R.id.join_layout:    // "회원가입" 버튼 클릭 시,
                 Intent go_join = new Intent(LoginActivity.this, JoinActivity.class);
@@ -100,23 +97,53 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         }
     }
 
-    public void CheckEdit() {            // 로그인 시, ID or Password 입력 안할 시 메세지 발생
-        try {
-            sId = ed_id.getText().toString();
-            sPw = ed_pw.getText().toString();
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+    public boolean isWrited(String... str) {           // 기입란 모두 작성 완료 판별 Func
+        for (String edit : str) {
+            if (!UtilCheck.isChecked(edit))
+                return false;
         }
-        loginDB IDB = new loginDB();
-        IDB.execute();
+        return true;
     }
 
-    public class loginDB extends AsyncTask<Void, Integer, Void> {
+    public void writeToDB() {        // DB 내, 저장 Func
+        sId = ed_id.getText().toString();
+        sPw = ed_pw.getText().toString();
+
+        if (isWrited(sId, sPw)) {                    // 빈칸 공백 X,
+            JoinDB joinDB = new JoinDB();
+            joinDB.execute();
+        } else {                                    // 빈칸 공백 O,
+            Toast.makeText(this, "회원 정보를 모두 기입해주세요.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {    // 폰트 설정
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed() {        // "Back"버튼 두 번 누를 시, 프로그램 종료
+        quitHandler.onBackPressed();
+    }
+
+    @Override
+    public void onStop() {      // Activity 생명 주기 중, onStop() 호출 시,
+        super.onStop();
+
+        editor.putBoolean("check", cb_id.isChecked());    //Activity 종료 전, CheckBox 상태 값 저장
+        editor.commit();
+    }
+
+    //////////////////////////////////        JoinDB            ////////////////////////////////////
+    /*
+            AsyncTask를 통한 Threading 작업 class
+     */
+    public class JoinDB extends AsyncTask<Void, Integer, Void> {
         String data;
 
         @Override
-        protected Void doInBackground(Void... unused) {
+        protected Void doInBackground(Void... unused) {          // Background 내부 처리
 
             String param = "u_id=" + sId + "&u_pw=" + sPw + "";
             try {
@@ -159,17 +186,17 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Void aVoid) {          // Background 작업 후,
             super.onPostExecute(aVoid);
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
-            if (data.equals("1")) {
+            if (data.equals("1")) {             // 인증 완료 성공 시,
                 editor.putString("Id", sId);
                 editor.commit();
                 Toast.makeText(LoginActivity.this, "회원인증 되었습니다.", Toast.LENGTH_SHORT).show();
                 Intent go_main = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(go_main);
                 LoginActivity.this.finish();
-            } else if (data.equals("0")) {
+            } else if (data.equals("0")) {      // 회원 정보 다를 시,
                 alertBuilder
                         .setTitle("알림")
                         .setMessage("회원정보가 틀렸습니다.")
@@ -182,7 +209,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                         });
                 AlertDialog dialog = alertBuilder.create();
                 dialog.show();
-            } else {
+            } else {                           // 접근 오류 시,
                 alertBuilder
                         .setTitle("알림")
                         .setMessage("등록정보가 없습니다.")
@@ -198,22 +225,5 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             }
         }
     }
-
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-    }
-
-    @Override
-    public void onBackPressed() {
-        quitHandler.onBackPressed();
-    }    // "Back"버튼 두 번 누를 시, 프로그램 종료
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        editor.putBoolean("check", cb_id.isChecked());
-        editor.commit();
-    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 }

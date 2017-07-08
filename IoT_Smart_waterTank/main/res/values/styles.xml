@@ -52,7 +52,19 @@
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:background">@drawable/round_shape</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 확인 Button style -->
+    <style name="btn_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">#5a5a5a</item>
+        <item name="android:text">확인</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>

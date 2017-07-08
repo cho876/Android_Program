@@ -70,53 +70,61 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_right:    // "확인" 화면
-                save_DB();
+                writeToDB();
                 break;
             case R.id.button_left:  // "돌아가기" 화면
-                Intent go_login = new Intent(JoinActivity.this, LoginActivity.class);
+                Intent go_login = new Intent(JoinActivity.this, LoginActivity.class);   // 회원가입 -> 로그인 창 이동
                 UtilCheck.UtilClose(go_login);
                 startActivity(go_login);
                 break;
         }
     }
 
-    public void save_DB() {
-        sName = ed_name.getText().toString();
-        sEmail = ed_email.getText().toString();
-        sId = ed_id.getText().toString();
-        sPw = ed_pw.getText().toString();
-        sPw_chk = ed_pwchk.getText().toString();
+    public boolean isWrited(String... str){           // 기입란 모두 작성 완료 판별 Func
+        for(String edit : str){
+            if(!UtilCheck.isChecked(edit))
+                return false;
+        }
+        return true;
+    }
 
-        if (UtilCheck.isChecked(sName) && UtilCheck.isChecked(sEmail) && UtilCheck.isChecked(sId)    // 빈칸 모두 기입할 시,
-                && UtilCheck.isChecked(sPw) && UtilCheck.isChecked(sPw_chk)) {
-            if (sPw.equals(sPw_chk)) {
-                editor.putString("Id", sId);
+    public void writeToDB() {      // DB 내, 저장 Func
+        sName = ed_name.getText().toString();        // 이름 변환
+        sEmail = ed_email.getText().toString();      // 이메일 변환
+        sId = ed_id.getText().toString();            // 아이디 변환
+        sPw = ed_pw.getText().toString();            // 비밀번호 변환
+        sPw_chk = ed_pwchk.getText().toString();      // 비밀번호 확인 변환
+
+        if (isWrited(sName, sEmail, sId, sPw, sPw_chk)) {                                            // 빈칸 공백 X,
+            if (sPw.equals(sPw_chk)) {                                  // 비밀번호 && 비밀번호 확인
+                editor.putString("Id", sId);     // Input to SharedPreference (Key: Id, value: sId)
                 editor.commit();
-                registerDB rdb = new registerDB();
+                JoinDB rdb = new JoinDB();      // Android -> DB 저장 (AsyncTask 실행)
                 rdb.execute();
-            } else {
+            } else {                                                   // 비밀번호 != 비밀번호 학인
                 Toast.makeText(this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
             }
-        } else {                                                                                                        // 빈칸이 존재할 시,
+        } else {                                                                                     // 빈칸 공백 O,
             Toast.makeText(JoinActivity.this, "회원 정보를 모두 기입해주세요.", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     @Override
-    protected void attachBaseContext(Context newBase) {    // 커스텀 폰트 설정
+    protected void attachBaseContext(Context newBase) {    // 폰트 설정
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 
-
-    //////////////////////////////////        registerDB            //////////////////////////////////////////
-    class registerDB extends AsyncTask<Void, Integer, Void> {
+    //////////////////////////////////        JoinDB            ////////////////////////////////////
+    /*
+            AsyncTask를 통한 Threading 작업 class
+     */
+    class JoinDB extends AsyncTask<Void, Integer, Void> {
         String data;
 
         @Override
-        protected Void doInBackground(Void... unused) {
+        protected Void doInBackground(Void... unused) {          // Background 내부 처리
             String param = "u_name=" + sName + "&u_email=" + sEmail + "&u_id=" + sId + "&u_pw=" + sPw + "";
-
             try {
                 URL url = new URL(
                         "http://211.253.25.169/join.php");
@@ -145,7 +153,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 data = buff.toString().trim();
                 if (data.equals("1")) {
-                    Log.e("RESULT", "Success");
+                    Log.e("RESULT", "Success - "+data);
                 } else
                     Log.e("RESULT", "Fail - " + data);
             } catch (MalformedURLException e) {
@@ -157,13 +165,13 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Void aVoid) {          // Background 작업 후,
             super.onPostExecute(aVoid);
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(JoinActivity.this);
-            if (data.equals("1")) {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(JoinActivity.this);     // 알람 팝업창 생성
+            if (data.equals("1")) {       // DB 저장 완료 성공 시,
                 Intent go_setting = new Intent(JoinActivity.this, SettingActivity.class);
                 startActivity(go_setting);
-            } else {
+            } else {                     // DB 저장 완료 실패 시,
                 alertBuilder
                         .setTitle("알림")
                         .setMessage("아이디가 중복됩니다.")
@@ -179,4 +187,5 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 }

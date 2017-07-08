@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- 로그인 화면 XML -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -66,8 +68,8 @@
                 android:background="@drawable/round_shape"
                 android:drawableLeft="@drawable/id_btn"
                 android:drawableStart="@drawable/id_btn"
-                android:inputType="text"
                 android:hint="아이디"
+                android:inputType="text"
                 android:padding="5dp"
                 android:textSize="15dp" />
 
@@ -100,9 +102,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="4"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/login_layout"
@@ -118,8 +120,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             android:layout_weight="2"
             android:orientation="horizontal">
 
