@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 수조 상태 화면 XML -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    style="@style/layout_top"
+    tools:context="com.example.cho.haneum.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_shape_inside"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- 상단부 Title 란 Custom View -->
+        <com.example.cho.haneum.CustomTitle
+            android:id="@+id/custom_main_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            app:title_symbol="@drawable/home" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF" />
+
+        <!-- 중단부 수치 제어 View -->
+        <LinearLayout style="@style/layout_mid">
+
+            <com.example.cho.haneum.CustomTable
+                android:id="@+id/custom_main_temp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:table_left_title="온도"
+                app:table_limg="@drawable/temp"
+                app:table_right_title="히터"
+                app:table_rimg="@drawable/heater" />
+
+            <com.example.cho.haneum.CustomTable
+                android:id="@+id/custom_main_turb"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:table_left_title="탁도"
+                app:table_limg="@drawable/level"
+                app:table_right_title="배수"
+                app:table_rimg="@drawable/out" />
+
+            <com.example.cho.haneum.CustomTable
+                android:id="@+id/custom_main_level"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:table_left_title="수위"
+                app:table_limg="@drawable/level"
+                app:table_right_title="급수"
+                app:table_rimg="@drawable/input" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF" />
+
+        <!-- 하단부 버튼 View -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/register_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/round_shape"
+                android:drawableLeft="@drawable/logout_btn"
+                android:drawableStart="@drawable/logout_btn"
+                android:padding="10dp"
+                android:text="재등록"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/logout_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_shape"
+                android:drawableLeft="@drawable/logout_btn"
+                android:drawableStart="@drawable/logout_btn"
+                android:padding="10dp"
+                android:text="로그아웃"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/quit_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_shape"
+                android:drawableLeft="@drawable/quit_btn"
+                android:drawableStart="@drawable/quit_btn"
+                android:padding="10dp"
+                android:text="종료"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
