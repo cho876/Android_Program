@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -133,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         } else {
                             dialog.dismiss();
                             Toast.makeText(LoginActivity.this, "로그인 성공했습니다. ", Toast.LENGTH_SHORT).show();
-                            Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);     // Move to MainActivity
+                            Intent intentMain = new Intent(LoginActivity.this, MenuActivity.class);     // Move to MainActivity
                             startActivity(intentMain);
                             finish();
                         }

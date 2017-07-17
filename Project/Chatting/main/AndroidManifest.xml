@@ -25,7 +25,8 @@
         <activity android:name=".CustomEditText" />
         <activity android:name=".FindIdActivity" />
         <activity android:name=".CustomTitle" />
-        <activity android:name=".FindPwActivity"></activity>
+        <activity android:name=".FindPwActivity" />
+        <activity android:name=".MenuActivity"></activity>
     </application>
 
 </manifest>
