@@ -35,6 +35,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     private SharedPreferences pref = null;
     private SharedPreferences.Editor editor = null;
     private CustomButton customButton;
+    private ValidCheck validCheck;
 
 
     @Override
@@ -57,6 +58,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         bRight.setOnClickListener(this);
 
         dialog = new ProgressDialog(this);
+        validCheck = new ValidCheck(this);
     }
 
     @Override
@@ -71,28 +73,18 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public boolean isWrited(String... str) {           // 기입란 모두 작성 완료 판별 Func
-        for (String edit : str) {
-            if (!UtilCheck.isChecked(edit)) {
-                Toast.makeText(SettingActivity.this, "모두 기입해주세요.", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void writeToDB() {         // DB 내, 저장 Func
         sId = pref.getString("Id", "");          // 기존에 저장된 ID 호출 및 저장 (Key 역할)
         sTemp = ed_temp.getText().toString();
         sTurb = ed_turb.getText().toString();
 
-        dialog.setMessage("잠시만 기다려 주세요...");
+        dialog.setMessage("설정 값을 저장 중입니다...");
         dialog.show();
-        if (isWrited(sId, sTemp, sTurb)) {
+        if (validCheck.isWrited(sId, sTemp, sTurb)) {
             JoinDB joinDB = new JoinDB();
             joinDB.execute();
-        }
+        }else
+            dialog.dismiss();
     }
 
     @Override

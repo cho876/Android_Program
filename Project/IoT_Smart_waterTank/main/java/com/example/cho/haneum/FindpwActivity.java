@@ -1,6 +1,7 @@
 package com.example.cho.haneum;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,6 +35,8 @@ public class FindpwActivity extends AppCompatActivity implements View.OnClickLis
     private EditText ed_id, ed_email;
     private TextView t_pw;
     private CustomButton customButton;
+    private ValidCheck validCheck;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,9 @@ public class FindpwActivity extends AppCompatActivity implements View.OnClickLis
         bLeft.setOnClickListener(this);
         bRight = customButton.getRightBtn();
         bRight.setOnClickListener(this);
+
+        dialog = new ProgressDialog(this);
+        validCheck = new ValidCheck(this);
     }
 
     @Override
@@ -76,23 +82,17 @@ public class FindpwActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public boolean isWrited(String... str) {           // 기입란 모두 작성 완료 판별 Func
-        for (String edit : str) {
-            if (!UtilCheck.isChecked(edit))
-                return false;
-        }
-        return true;
-    }
-
     public void writeToDB() {         // DB 내, 저장 Func
         sId = ed_id.getText().toString();
         sEmail = ed_email.getText().toString();
 
-        if (isWrited(sId, sEmail)) {
+        dialog.setMessage("비밀번호를 찾는 중입니다...");
+        dialog.show();
+        if (validCheck.isWrited(sId, sEmail)) {
             JoinDB joinDB = new JoinDB();
             joinDB.execute();
-        } else
-            Toast.makeText(this, "기입란을 채워주시기 바랍니다.", Toast.LENGTH_SHORT).show();
+        }else
+            dialog.dismiss();
     }
 
     @Override

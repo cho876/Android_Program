@@ -2,6 +2,7 @@ package com.example.cho.haneum;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -46,6 +47,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     private SharedPreferences pref = null;
     private SharedPreferences.Editor editor = null;
 
+    private ValidCheck validCheck;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         btn.setOnClickListener(this);
     }
 
-    public void initView(){
+    public void initView() {
         ed_id = (EditText) findViewById(R.id._login_id);
         ed_pw = (EditText) findViewById(R.id._login_pw);
         cb_id = (CheckBox) findViewById(R.id._login_chk);
@@ -72,7 +75,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         FixedID(saveId);                      //  아이디 자동 입력 기능
 
         dialog = new ProgressDialog(this);
+        validCheck = new ValidCheck(this);
     }
+
     public void FixedID(boolean saveId) {            // 아이디 자동 입력 기능
         if (saveId) {   // Check 상태 true일 경우,
             String id = pref.getString("Id", "");  // 기존에 저장되어있던 ID 불러와 출력
@@ -101,26 +106,17 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         }
     }
 
-    public boolean isWrited(String... str) {           // 기입란 모두 작성 완료 판별 Func
-        for (String edit : str) {
-            if (!UtilCheck.isChecked(edit))
-                return false;
-        }
-        return true;
-    }
-
     public void writeToDB() {        // DB 내, 저장 Func
         sId = ed_id.getText().toString();
         sPw = ed_pw.getText().toString();
 
         dialog.setMessage("로그인 중입니다...");
         dialog.show();
-        if (isWrited(sId, sPw)) {                    // 빈칸 공백 X,
+        if (validCheck.isWrited(sId, sPw)) {        // 빈칸 공백 X,
             JoinDB joinDB = new JoinDB();
             joinDB.execute();
-        } else {                                    // 빈칸 공백 O,
-            Toast.makeText(this, "회원 정보를 모두 기입해주세요.", Toast.LENGTH_SHORT).show();
-        }
+        }else
+            dialog.dismiss();
     }
 
     @Override

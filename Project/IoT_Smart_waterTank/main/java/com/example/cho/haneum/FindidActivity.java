@@ -1,6 +1,7 @@
 package com.example.cho.haneum;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,6 +35,8 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
     private String sName, sEmail;         // EditText -> String 변환 (이름, 이메일)
     private TextView text_id;             // 아이디 찾기 결과 변수
     private CustomButton customButton;
+    private ValidCheck validCheck;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +45,10 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
         initView();
     }
 
-                  /*      View 초기화      */
-    public void initView(){
+    /*      View 초기화      */
+    public void initView() {
         ed_name = (EditText) findViewById(R.id.findId_Name);                           // 이름 기입 란
-        ed_email =(EditText) findViewById(R.id.findId_Email);                          // 이메일 기입 란
+        ed_email = (EditText) findViewById(R.id.findId_Email);                          // 이메일 기입 란
 
         text_id = (TextView) findViewById(R.id._findid_search);                 // 검색 결과 란
         bSearch = (Button) findViewById(R.id.searchId_btn);                   // 아이디 찾기 버튼
@@ -56,6 +59,9 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
         bLeft.setOnClickListener(this);
         bRight = customButton.getRightBtn();
         bRight.setOnClickListener(this);
+
+        dialog = new ProgressDialog(this);
+        validCheck = new ValidCheck(this);
     }
 
     @Override
@@ -76,24 +82,17 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public boolean isWrited(String... str) {           // 기입란 모두 작성 완료 판별 Func
-        for (String edit : str) {
-            if (!UtilCheck.isChecked(edit))
-                return false;
-        }
-        return true;
-    }
-
     public void writeToDB() {           // DB 내, 저장 Func
         sName = ed_name.getText().toString();     // EditText -> String으로 변환
         sEmail = ed_email.getText().toString();
 
-        if (isWrited(sName, sEmail)) {       // 두 EditText 모두 기입할 시,
+        dialog.setMessage("아이디를 찾는 중입니다...");
+        dialog.show();
+        if (validCheck.isWrited(sName, sEmail)) {       // 두 EditText 모두 기입할 시,
             JoinDB joinDB = new JoinDB();
             joinDB.execute();
-        } else                                        // 두 EditText 중 하나라도 공백이 있을 시,
-            Toast.makeText(this, "기입란을 채워주시기 바랍니다.", Toast.LENGTH_SHORT).show();
-
+        }else
+            dialog.dismiss();
     }
 
     //////////////////////////////////        JoinDB            ////////////////////////////////////

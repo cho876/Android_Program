@@ -33,6 +33,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     private Button bLeft, bRight;
     private String sName, sEmail, sId, sPw, sPw_chk;
     private EditText ed_name, ed_email, ed_id, ed_pw, ed_pwchk;
+    private ValidCheck validCheck;
     private CustomButton customButton;
     private ProgressDialog dialog;
     private SharedPreferences pref = null;
@@ -62,6 +63,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         bRight.setOnClickListener(this);
 
         dialog = new ProgressDialog(this);
+        validCheck = new ValidCheck(this);
     }
 
     @Override
@@ -78,21 +80,6 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /*      기입란 모두 작성 완료여부 확인   */
-    public boolean isWrited(String... str) {
-        for (String edit : str)
-            if (!UtilCheck.isChecked(edit))
-                return false;
-        return true;
-    }
-
-    /*      이메일 형식 여부 확인    */
-    private boolean isValidEmail(String sEmail) {
-        if (!Patterns.EMAIL_ADDRESS.matcher(sEmail).matches())
-            return false;
-        return true;
-    }
-
     public void writeToDB() {      // DB 내, 저장 Func
         sName = ed_name.getText().toString();        // 이름 변환
         sEmail = ed_email.getText().toString();      // 이메일 변환
@@ -102,27 +89,26 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
         dialog.setMessage("등록 중입니다...");
         dialog.show();
-        if (isWrited(sName, sEmail, sId, sPw, sPw_chk)) {                                            // 빈칸 공백 X,
-            if (sPw.equals(sPw_chk)) {                                  // 비밀번호 && 비밀번호 확인
-                if (!isValidEmail(sEmail)) { // 이메일 형식과 어긋날 시,
-                    Toast.makeText(this, "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
+        if (validCheck.isWrited(sName, sEmail, sId, sPw, sPw_chk)) {                                            // 빈칸 공백 X,
+            if (validCheck.isSamePw(sPw, sPw_chk)) {     // 비밀번호 && 비밀번호 확인
+                if (!validCheck.isValidName(sName))                   // 이메일 형식과 어긋날 시,
                     dialog.dismiss();
-                }
-                else {                       // 이메일 형식에 맞을 시,
+                else if (!validCheck.isValidEmail(sEmail))               // 이름 형식과 어긋날 시,
+                    dialog.dismiss();
+                else if (!validCheck.isValidId(sId))                   // 아이디 형식과 어긋날 시,
+                    dialog.dismiss();
+                else if (!validCheck.isValidPw(sPw))                   // 비밀번호 형식과 어긋날 시,
+                    dialog.dismiss();
+                else {                                                 // 모두 충족 시,
                     editor.putString("Id", sId);     // Input to SharedPreference (Key: Id, value: sId)
                     editor.commit();
                     JoinDB rdb = new JoinDB();      // Android -> DB 저장 (AsyncTask 실행)
                     rdb.execute();
                 }
-            }
-            else {                                                   // 비밀번호 != 비밀번호 학인
-                Toast.makeText(this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+            } else                                      // 비밀번호 != 비밀번호 학인
                 dialog.dismiss();
-            }
-        } else {                                                                                     // 빈칸 공백 O,
-            Toast.makeText(JoinActivity.this, "회원 정보를 모두 기입해주세요.", Toast.LENGTH_SHORT).show();
+        } else                                                                                                // 빈칸 공백 O
             dialog.dismiss();
-        }
     }
 
     @Override

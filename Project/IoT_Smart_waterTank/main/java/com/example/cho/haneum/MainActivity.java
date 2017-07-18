@@ -1,5 +1,6 @@
 package com.example.cho.haneum;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SharedPreferences pref = null;
     private QuitHandler quitHandler;
     private Thread th;
+    private ProgressDialog dialog;
     private boolean isChecked = true;
     private CustomTitle customTitle;
     private CustomTable customTable;
@@ -49,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("불러오는 중입니다...");
+        dialog.show();
 
         customTitle = (CustomTitle) findViewById(R.id.custom_main_title);
         t_title = customTitle.getTitle();
@@ -99,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     class displaySetDB extends AsyncTask<Void, Integer, Void> {
         String data;
+
         @Override
         protected Void doInBackground(Void... unused) {
             String param = "u_id=" + title + "";
@@ -261,6 +268,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             onOffSet(tv_heat, sHeat);      // 현재 히터 제어 상태 처리 (0: 비동작 / else: 동작)
             onOffSet(tv_in, sIn);      // 현재 급수 제어 상태 처리 (0: 비동작 / else: 동작)
             onOffSet(tv_out, sOut);      // 현재 배수 제어 상태 처리 (0: 비동작 / else: 동작)
+
+            dialog.dismiss();
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////

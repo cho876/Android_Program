@@ -22,12 +22,6 @@ import java.net.URL;
  */
 
 public class UtilCheck {            // EditText 창에 미 입력칸 존재 시, false
-    public static boolean isChecked(String data) {
-        if (data.equals(""))
-            return false;
-        else
-            return true;
-    }
 
     public static void UtilClose(Intent intent) {          // 현재 intent를 제외한 모든 intent 삭제
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB)
