@@ -2,7 +2,6 @@ package com.example.cho.haneum;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -72,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         ed_pw = (EditText) findViewById(R.id._login_pw);
         cb_id = (CheckBox) findViewById(R.id._login_chk);
         saveId = pref.getBoolean("check", false);              // 체크 박스 현재 상태 true/false 저장 (Boolean)
-        FixedID(saveId);                      //  아이디 자동 입력 기능
+        FixedID(saveId);                                       //  아이디 자동 입력 기능
 
         dialog = new ProgressDialog(this);
         validCheck = new ValidCheck(this);

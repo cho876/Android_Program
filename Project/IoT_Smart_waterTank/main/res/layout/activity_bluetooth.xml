@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 블루투스 장치 연결  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_findid"
+    style="@style/layout_top"
+    tools:context="com.example.cho.haneum.BluetoothActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_shape_inside"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- 상단부 Title 란 Custom View -->
+        <com.example.cho.haneum.CustomTitle
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            app:title_symbol="@drawable/vec_bluetooth"
+            app:title_text="블루투스\n장치 설정" />
+
+        <!-- 중반부 Bluetooth List 란 -->
+        <LinearLayout style="@style/layout_mid">
+
+            <!-- 연결 가능한 블루투스 장치 리스트 View -->
+            <ListView
+                android:id="@+id/bt_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- 하단부 버튼란 Custom View -->
+        <com.example.cho.haneum.CustomButton
+            android:id="@+id/custom_bt_btn"
+            style="@style/layout_bottom"
+            app:btn_left_img="@drawable/cancer_btn"
+            app:btn_left_text="돌아가기"
+            app:btn_right_img="@drawable/login_btn"
+            app:btn_right_text="설정 완료" />
+    </LinearLayout>
+</LinearLayout>

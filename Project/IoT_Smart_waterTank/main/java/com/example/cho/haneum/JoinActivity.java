@@ -170,6 +170,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(aVoid);
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(JoinActivity.this);     // 알람 팝업창 생성
             if (data.equals("1")) {       // DB 저장 완료 성공 시,
+                Log.e("111", "111");
                 Intent go_setting = new Intent(JoinActivity.this, SettingActivity.class);
                 startActivity(go_setting);
             } else {                     // DB 저장 완료 실패 시,

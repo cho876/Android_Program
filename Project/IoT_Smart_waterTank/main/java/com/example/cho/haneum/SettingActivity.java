@@ -148,9 +148,8 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(SettingActivity.this);
             if (data.equals("1")) {
                 Toast.makeText(SettingActivity.this, "성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                Intent go_main = new Intent(SettingActivity.this, MainActivity.class);
-                UtilCheck.UtilClose(go_main);
-                startActivity(go_main);
+                Intent go_bt = new Intent(SettingActivity.this, BluetoothActivity.class);
+                startActivity(go_bt);
             } else {
                 alertBuilder
                         .setTitle("알림")
