@@ -194,9 +194,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                 editor.putString("Id", sId);
                 editor.commit();
                 Toast.makeText(LoginActivity.this, "회원인증 되었습니다.", Toast.LENGTH_SHORT).show();
-                Intent go_main = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(go_main);
-                LoginActivity.this.finish();
+                Intent go_bt = new Intent(LoginActivity.this, BluetoothActivity.class);
+                startActivity(go_bt);
             } else if (data.equals("0")) {      // 회원 정보 다를 시,
                 alertBuilder
                         .setTitle("알림")

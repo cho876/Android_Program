@@ -75,15 +75,15 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     public void writeToDB() {         // DB 내, 저장 Func
         sId = pref.getString("Id", "");          // 기존에 저장된 ID 호출 및 저장 (Key 역할)
-        sTemp = ed_temp.getText().toString();
-        sTurb = ed_turb.getText().toString();
+        sTemp = ed_temp.getText().toString() + ".00";
+        sTurb = ed_turb.getText().toString() + ".00";
 
         dialog.setMessage("설정 값을 저장 중입니다...");
         dialog.show();
         if (validCheck.isWrited(sId, sTemp, sTurb)) {
             JoinDB joinDB = new JoinDB();
             joinDB.execute();
-        }else
+        } else
             dialog.dismiss();
     }
 
@@ -148,8 +148,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(SettingActivity.this);
             if (data.equals("1")) {
                 Toast.makeText(SettingActivity.this, "성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                Intent go_bt = new Intent(SettingActivity.this, BluetoothActivity.class);
-                startActivity(go_bt);
+                Intent go_home = new Intent(SettingActivity.this, LoginActivity.class);
+                UtilCheck.UtilClose(go_home);
+                startActivity(go_home);
             } else {
                 alertBuilder
                         .setTitle("알림")

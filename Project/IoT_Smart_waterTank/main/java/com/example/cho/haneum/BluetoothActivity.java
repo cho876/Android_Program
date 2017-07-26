@@ -15,8 +15,8 @@ public class BluetoothActivity extends Activity
         implements AdapterView.OnItemClickListener, View.OnClickListener {
     static final int ACTION_ENABLE_BT = 101;
     private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
 
+    private ProgressDialog dialog;
     private CustomButton customButton;
     private Button bLeft, bRight;
 
@@ -184,6 +184,10 @@ public class BluetoothActivity extends Activity
 
     // ListView 항목 선택 이벤트 함수
     public void onItemClick(AdapterView parent, View view, int position, long id) {
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("기기와 연결 중입니다...");
+        dialog.show();
+
         // 사용자가 선택한 항목의 내용을 구한다
         String strItem = mArDevice.get(position);
 
@@ -201,6 +205,7 @@ public class BluetoothActivity extends Activity
         if (mCThread != null) return;
         // 상대방 디바이스를 구한다
         BluetoothDevice device = mBA.getRemoteDevice(address);
+        Log.e("Device", device.toString());
         // 클라이언트 소켓 스레드 생성 & 시작
         mCThread = new ClientThread(device);
         mCThread.start();
@@ -224,11 +229,15 @@ public class BluetoothActivity extends Activity
             try {
                 mmCSocket.connect();
             } catch (IOException e) {
+                showMessage("기기와 연결하지 못했습니다.");
+                dialog.dismiss();
                 // 접속이 실패했으면 소켓을 닫는다
                 try {
                     mmCSocket.close();
                 } catch (IOException e2) {
                 }
+                Intent go_bt = new Intent(BluetoothActivity.this, BluetoothActivity.class);
+                startActivity(go_bt);
                 return;
             }
 
@@ -299,6 +308,7 @@ public class BluetoothActivity extends Activity
 
     // 원격 디바이스와 접속되었으면 데이터 송수신 스레드를 시작
     public void onConnected(BluetoothSocket socket) {
+        dialog.dismiss();
         showMessage("기기와 연결되었습니다.");
 
         // 데이터 송수신 스레드가 생성되어 있다면 삭제한다

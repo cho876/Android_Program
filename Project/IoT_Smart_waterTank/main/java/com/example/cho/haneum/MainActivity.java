@@ -158,8 +158,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sTemp = array[0];
             sTurb = array[1];
 
-            setTemp = sTemp + " / ";
-            setTurb = sTurb + " / ";
+            float fTemp = Float.parseFloat(sTemp);               // 희망 온도 소수점 이하부분 제거
+            int iTemp = (int) fTemp;
+            setTemp = sTemp.valueOf(iTemp) + " / ";
+
+            float fTurb = Float.parseFloat(sTurb);             // 희망 탁도 소수점 이하부분 제거
+            int iTurb = (int) fTurb;
+            setTurb = sTurb.valueOf(iTurb) + " / ";
         }
     }
 
@@ -255,8 +260,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             String[] array = data.split(",");         // 현재 온도, 탁도 값 및 수위, 히터, 급수, 배수 제어상태 받아옴
-            sTemp = array[0];
-            sTurb = array[1];
+
+            float fTemp = Float.parseFloat(array[0]);               // 현재 온도 소수점 이하부분 제거
+            int iTemp = (int) fTemp;
+            sTemp = String.valueOf(iTemp);
+
+            float fTurb = Float.parseFloat(array[1]);               // 현재 온도 소수점 이하부분 제거
+            int iTurb = (int) fTurb;
+            sTurb = String.valueOf(iTurb);
+
             sLevel = array[2];
             sHeat = array[3];
             sIn = array[4];
@@ -264,7 +276,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             tv_temp.setText(setTemp + sTemp);       // 설정 온도 + 현재 온도 값으로 온도 TextView Set
             tv_turb.setText(setTurb + sTurb);       // 설정 탁도 + 현재 탁도 값으로 탁도 TextView Set
-            onOffSet(tv_level, sLevel);        // 현재 수위 제어 상태 처리 (0: 비동작 / else: 동작)
+
+            if (sLevel.equals("0"))
+                tv_level.setText("수위 부족");
+            else
+                tv_level.setText("수위 충분");
+
             onOffSet(tv_heat, sHeat);      // 현재 히터 제어 상태 처리 (0: 비동작 / else: 동작)
             onOffSet(tv_in, sIn);      // 현재 급수 제어 상태 처리 (0: 비동작 / else: 동작)
             onOffSet(tv_out, sOut);      // 현재 배수 제어 상태 처리 (0: 비동작 / else: 동작)
