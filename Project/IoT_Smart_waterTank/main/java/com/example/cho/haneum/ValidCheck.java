@@ -64,6 +64,15 @@ public class ValidCheck {
         }
     }
 
+    public boolean isValidTurb(String sTurb) {
+        if (sTurb.equals("0.00") || sTurb.equals("1.00") || sTurb.equals("2.00") || sTurb.equals("3.00"))
+            return true;
+        else {
+            Toast.makeText(activity, "탁도 값이 잘못 되었습니다.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
     /*  비밀번호 동일 검사  */
     public boolean isSamePw(String sPw, String sPwchk) {
         if (sPw.equals(sPwchk))

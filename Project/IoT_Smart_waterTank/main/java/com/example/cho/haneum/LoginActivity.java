@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         if (validCheck.isWrited(sId, sPw)) {        // 빈칸 공백 X,
             JoinDB joinDB = new JoinDB();
             joinDB.execute();
-        }else
+        } else
             dialog.dismiss();
     }
 
@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             String param = "u_id=" + sId + "&u_pw=" + sPw + "";
             try {
                 URL url = new URL(
-                        "http://211.253.25.169/login.php");
+                        "http://211.253.25.169/Login.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                     buff.append(line + "\n");
                 }
                 data = buff.toString().trim();
-
+                Log.e("DATA", data.toString());
                 if (data.equals("1"))
                     Log.e("RESULT", "Success");
                 else
@@ -194,25 +194,13 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                 editor.putString("Id", sId);
                 editor.commit();
                 Toast.makeText(LoginActivity.this, "회원인증 되었습니다.", Toast.LENGTH_SHORT).show();
-                Intent go_bt = new Intent(LoginActivity.this, BluetoothActivity.class);
+                Intent go_bt = new Intent(LoginActivity.this, MainActivity.class);
+                UtilCheck.UtilClose(go_bt);
                 startActivity(go_bt);
             } else if (data.equals("0")) {      // 회원 정보 다를 시,
                 alertBuilder
                         .setTitle("알림")
                         .setMessage("회원정보가 틀렸습니다.")
-                        .setCancelable(true)
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                closeOptionsMenu();
-                            }
-                        });
-                AlertDialog dialog = alertBuilder.create();
-                dialog.show();
-            } else {                           // 접근 오류 시,
-                alertBuilder
-                        .setTitle("알림")
-                        .setMessage("등록정보가 없습니다.")
                         .setCancelable(true)
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override

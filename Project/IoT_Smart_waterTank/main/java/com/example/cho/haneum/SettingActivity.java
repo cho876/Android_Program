@@ -81,8 +81,11 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         dialog.setMessage("설정 값을 저장 중입니다...");
         dialog.show();
         if (validCheck.isWrited(sId, sTemp, sTurb)) {
-            JoinDB joinDB = new JoinDB();
-            joinDB.execute();
+            if(validCheck.isValidTurb(sTurb)) {
+                JoinDB joinDB = new JoinDB();
+                joinDB.execute();
+            }else
+                dialog.dismiss();
         } else
             dialog.dismiss();
     }
@@ -105,7 +108,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
             try {
                 URL url = new URL(
-                        "http://211.253.25.169/setting.php");
+                        "http://211.253.25.169/Setting.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
@@ -148,13 +151,13 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(SettingActivity.this);
             if (data.equals("1")) {
                 Toast.makeText(SettingActivity.this, "성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                Intent go_home = new Intent(SettingActivity.this, LoginActivity.class);
+                Intent go_home = new Intent(SettingActivity.this, MainActivity.class);
                 UtilCheck.UtilClose(go_home);
                 startActivity(go_home);
             } else {
                 alertBuilder
                         .setTitle("알림")
-                        .setMessage("입력 가능 범위를 벗어났습니다.\n(0 ~ 99)")
+                        .setMessage("입력 가능 범위를 벗어났습니다.")
                         .setCancelable(true)
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override

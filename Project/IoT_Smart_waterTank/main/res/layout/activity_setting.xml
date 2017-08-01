@@ -51,7 +51,7 @@
                     android:id="@+id/setting_Turb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="탁도를 입력해주세요...(1 ~ 99)"
+                    android:hint="탁도를 입력해주세요... 0(매우 더러움) ~ 3(매우 맑음)"
                     android:inputType="numberDecimal" />
             </android.support.design.widget.TextInputLayout>
 

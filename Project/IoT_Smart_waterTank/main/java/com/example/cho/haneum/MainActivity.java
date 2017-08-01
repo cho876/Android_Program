@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView t_title, tv_temp, tv_turb, tv_level, tv_heat, tv_in, tv_out;   // 핸드폰 UI Textview
     private String sTemp, sTurb, sLevel, sHeat, sIn, sOut;                    // Cast TextView -> String
 
-    private String setTemp, setTurb;        // 설정 온도 및 탁도 값
+    private String setTemp, setTurb, curTemp, curTurb;        // 설정 온도 및 탁도 값
     private String title;                  // 아이디
     private SharedPreferences pref = null;
     private QuitHandler quitHandler;
@@ -83,9 +83,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             btn.setOnClickListener(this);
         }
 
-        displaySetDB displaySetDB = new displaySetDB();
-        displaySetDB.execute();
-
         th = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -101,71 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         th.start();
-    }
-
-    class displaySetDB extends AsyncTask<Void, Integer, Void> {
-        String data;
-
-        @Override
-        protected Void doInBackground(Void... unused) {
-            String param = "u_id=" + title + "";
-
-            try {
-                URL url = new URL(
-                        "http://211.253.25.169/main.php");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.connect();
-
-                OutputStream outs = conn.getOutputStream();
-                outs.write(param.getBytes("UTF-8"));
-                outs.flush();
-                outs.close();
-
-                InputStream is = null;
-                BufferedReader in = null;
-                data = "";
-
-                is = conn.getInputStream();
-                in = new BufferedReader(new InputStreamReader(is), 8 * 1024);
-                String line = null;
-                StringBuffer buff = new StringBuffer();
-                while ((line = in.readLine()) != null) {
-                    buff.append(line + "\n");
-                }
-                data = buff.toString().trim();
-                if (data.equals(null))
-                    Log.e("RESULT", "Fail - " + data);
-                else {
-                    Log.e("RESULT", "Success - " + data);
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            String[] array = data.split(",");
-
-            sTemp = array[0];
-            sTurb = array[1];
-
-            float fTemp = Float.parseFloat(sTemp);               // 희망 온도 소수점 이하부분 제거
-            int iTemp = (int) fTemp;
-            setTemp = sTemp.valueOf(iTemp) + " / ";
-
-            float fTurb = Float.parseFloat(sTurb);             // 희망 탁도 소수점 이하부분 제거
-            int iTurb = (int) fTurb;
-            setTurb = sTurb.valueOf(iTurb) + " / ";
-        }
     }
 
     @Override
@@ -201,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         isChecked = false;
     }
 
+    /*  현재 값 DB 내에서 불러오는 AsyncTask    */
     public class Find_DB extends AsyncTask<Void, Integer, Void> {         // AsyncTask를 통한 서버 통신
         String data;
         String sId = pref.getString("Id", "");
@@ -208,20 +141,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected Void doInBackground(Void... unused) {
 
-            String param = "u_id=" + sId + "";
             try {
                 URL url = new URL(
-                        "http://211.253.25.169/display.php");
+                        "http://211.253.25.169/Cur.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
                 conn.connect();
-
-                OutputStream outs = conn.getOutputStream();
-                outs.write(param.getBytes("UTF-8"));
-                outs.flush();
-                outs.close();
 
                 InputStream is = null;
                 BufferedReader in = null;
@@ -238,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (data.equals(""))                  // php를 통해 값이 아무 것도 오지 않을 경우
                     Log.e("RESULT", "Fail - " + data);
                 else {                       // 아이디를 불러올 경우
-                    Log.e("RESULT", "Success");
+                    Log.e("RESULT", "Success - " + data);
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -261,21 +188,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(aVoid);
             String[] array = data.split(",");         // 현재 온도, 탁도 값 및 수위, 히터, 급수, 배수 제어상태 받아옴
 
-            float fTemp = Float.parseFloat(array[0]);               // 현재 온도 소수점 이하부분 제거
-            int iTemp = (int) fTemp;
-            sTemp = String.valueOf(iTemp);
+            float fsTemp = Float.parseFloat(array[0]);               // 희망 온도 소수점 이하부분 제거
+            int isTemp = (int) fsTemp;
+            setTemp = String.valueOf(isTemp);
 
-            float fTurb = Float.parseFloat(array[1]);               // 현재 온도 소수점 이하부분 제거
-            int iTurb = (int) fTurb;
-            sTurb = String.valueOf(iTurb);
+            float fsTurb = Float.parseFloat(array[1]);               // 현재 온도 소수점 이하부분 제거
+            int isTurb = (int) fsTurb;
+            setTurb = String.valueOf(isTurb);
 
-            sLevel = array[2];
-            sHeat = array[3];
-            sIn = array[4];
-            sOut = array[5];
+            float fcTemp = Float.parseFloat(array[2]);               // 희망 온도 소수점 이하부분 제거
+            int icTemp = (int) fcTemp;
+            curTemp = String.valueOf(icTemp);
 
-            tv_temp.setText(setTemp + sTemp);       // 설정 온도 + 현재 온도 값으로 온도 TextView Set
-            tv_turb.setText(setTurb + sTurb);       // 설정 탁도 + 현재 탁도 값으로 탁도 TextView Set
+            float fcTurb = Float.parseFloat(array[3]);               // 현재 온도 소수점 이하부분 제거
+            int icTurb = (int) fcTurb;
+            curTurb = String.valueOf(icTurb);
+
+            sLevel = array[4];
+            sHeat = array[5];
+            sIn = array[6];
+            sOut = array[7];
+
+            tv_temp.setText(setTemp + " / " + curTemp);       // 설정 온도 + 현재 온도 값으로 온도 TextView Set
+            tv_turb.setText(setTurb + " / " + curTurb);       // 설정 탁도 + 현재 탁도 값으로 탁도 TextView Set
 
             if (sLevel.equals("0"))
                 tv_level.setText("수위 부족");
