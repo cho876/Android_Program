@@ -52,18 +52,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ConnectivityManager manager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        NetworkInfo wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-
-
-        // wifi 또는 모바일 네트워크 어느 하나라도 연결이 되어있다면,
-        if (wifi.isConnected() || mobile.isConnected()) {
-            Log.i("연결됨" , "연결이 되었습니다.");
-                    setContentView(R.layout.activity_login);
-        } else {
-            Log.i("연결 안 됨" , "연결이 다시 한번 확인해주세요");
-        }
+        setContentView(R.layout.activity_login);
 
         pref = getSharedPreferences("settingDB", MODE_PRIVATE);
         editor = pref.edit();
