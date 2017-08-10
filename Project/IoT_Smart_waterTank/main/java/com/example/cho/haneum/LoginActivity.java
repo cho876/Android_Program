@@ -31,6 +31,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * 로그인 Activity
+ */
+
 public class LoginActivity extends AppCompatActivity implements OnClickListener {  // "로그인" 화면
 
     final int[] MY_BUTTONS = {

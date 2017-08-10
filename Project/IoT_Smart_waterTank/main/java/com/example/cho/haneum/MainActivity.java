@@ -25,6 +25,10 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * 수조 상태 View Activity
+ */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {  // 메인 화면
 
     final int[] MY_BUTTONS = {

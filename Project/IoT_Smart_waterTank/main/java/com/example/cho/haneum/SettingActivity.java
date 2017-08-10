@@ -26,6 +26,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * 희망 온/탁도 설정 Activity
+ */
+
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {    // "수조 설정" 화면
 
     private String sId, sTemp, sTurb, sLevel;

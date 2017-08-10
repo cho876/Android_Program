@@ -17,8 +17,6 @@ import android.widget.Toast;
 
 import com.tsengvn.typekit.TypekitContextWrapper;
 
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +25,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+/**
+ * 비밀번호 찾기 Activity
+ */
 
 public class FindpwActivity extends AppCompatActivity implements View.OnClickListener {  // "비밀번호 찾기" 화면
 
