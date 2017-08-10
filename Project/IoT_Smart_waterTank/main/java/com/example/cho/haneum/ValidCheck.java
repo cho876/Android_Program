@@ -44,7 +44,7 @@ public class ValidCheck {
     /*  이메일 유효성 검사  */
     public boolean isValidEmail(String sEmail) {
         if (TextUtils.isEmpty(sEmail) || !sEmail.matches(Patterns.EMAIL_ADDRESS.pattern())) {
-            Toast.makeText(activity, "이메일이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "이메일 형식이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -65,7 +65,7 @@ public class ValidCheck {
     }
 
     public boolean isValidTurb(String sTurb) {
-        if (sTurb.equals("0.00") || sTurb.equals("1.00") || sTurb.equals("2.00") || sTurb.equals("3.00"))
+        if (sTurb.equals("0.00") || sTurb.equals("1.00") || sTurb.equals("2.00") || sTurb.equals("3.00") || sTurb.equals("4.00"))
             return true;
         else {
             Toast.makeText(activity, "탁도 값이 잘못 되었습니다.", Toast.LENGTH_SHORT).show();

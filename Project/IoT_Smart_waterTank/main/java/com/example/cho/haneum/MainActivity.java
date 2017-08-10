@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dialog.show();
 
         customTitle = (CustomTitle) findViewById(R.id.custom_main_title);
-        t_title = customTitle.getTitle();
+        t_title = customTitle.getTv_content();
 
         pref = getSharedPreferences("settingDB", MODE_PRIVATE);
         title = pref.getString("Id", "");
@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void run() {
                 while (isChecked) {
-                    Find_DB find_db = new Find_DB();
-                    find_db.execute();
+                    Join_DB join_db = new Join_DB();
+                    join_db.execute();
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
@@ -134,16 +134,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /*  현재 값 DB 내에서 불러오는 AsyncTask    */
-    public class Find_DB extends AsyncTask<Void, Integer, Void> {         // AsyncTask를 통한 서버 통신
+    public class Join_DB extends AsyncTask<Void, Integer, Void> {         // AsyncTask를 통한 서버 통신
         String data;
-        String sId = pref.getString("Id", "");
 
         @Override
         protected Void doInBackground(Void... unused) {
 
             try {
-                URL url = new URL(
-                        "http://211.253.25.169/Cur.php");
+                URL url = new URL("http://211.253.25.169/Cur.php");        // DB 서버 IP 주소 url 연결
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");

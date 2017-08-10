@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             R.id.findpw_layout
     };
 
-    private QuitHandler quitHandler;
+    ConnectivityManager manager;
     private EditText ed_id, ed_pw = null;
     private CheckBox cb_id = null;
     private String sId, sPw;
@@ -45,13 +47,24 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
     private ProgressDialog dialog;
     private SharedPreferences pref = null;
     private SharedPreferences.Editor editor = null;
-
     private ValidCheck validCheck;
-
+    private QuitHandler quitHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        ConnectivityManager manager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+
+        // wifi 또는 모바일 네트워크 어느 하나라도 연결이 되어있다면,
+        if (wifi.isConnected() || mobile.isConnected()) {
+            Log.i("연결됨" , "연결이 되었습니다.");
+                    setContentView(R.layout.activity_login);
+        } else {
+            Log.i("연결 안 됨" , "연결이 다시 한번 확인해주세요");
+        }
+
         pref = getSharedPreferences("settingDB", MODE_PRIVATE);
         editor = pref.edit();
         initView();
@@ -175,7 +188,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                 data = buff.toString().trim();
                 Log.e("DATA", data.toString());
                 if (data.equals("1"))
-                    Log.e("RESULT", "Success");
+                    Log.e("RESULT", "Success" + data);
                 else
                     Log.e("RESULT", "Fail - " + data);
             } catch (MalformedURLException e) {

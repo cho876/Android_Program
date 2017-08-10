@@ -17,8 +17,8 @@ import org.w3c.dom.Attr;
 
 public class CustomTitle extends LinearLayout {
 
-    ImageView symbol;
-    TextView textView;
+    ImageView iv_img;
+    TextView tv_content;
 
     public CustomTitle(Context context) {
         super(context);
@@ -43,8 +43,8 @@ public class CustomTitle extends LinearLayout {
         View v = layoutInflater.inflate(R.layout.activity_custom_title, this, false);
         addView(v);
 
-        symbol = (ImageView) findViewById(R.id.title_symbol);
-        textView = (TextView) findViewById(R.id.title_text);
+        iv_img = (ImageView) findViewById(R.id.title_symbol);
+        tv_content = (TextView) findViewById(R.id.title_text);
     }
 
     private void getAttrs(AttributeSet attrs) {
@@ -59,15 +59,16 @@ public class CustomTitle extends LinearLayout {
 
     private void setTypedArray(TypedArray typedArray) {
         int symbol_ref = typedArray.getResourceId(R.styleable.TitleAttrs_title_symbol, R.drawable.findid);
-        symbol.setImageResource(symbol_ref);
+        iv_img.setImageResource(symbol_ref);
 
         String sText = typedArray.getString(R.styleable.TitleAttrs_title_text);
-        textView.setText(sText);
+        tv_content.setText(sText);
 
         typedArray.recycle();
     }
 
-    public TextView getTitle() {
-        return textView;
+    public ImageView getIv_img(){return iv_img;}
+    public TextView getTv_content() {
+        return tv_content;
     }
 }

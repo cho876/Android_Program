@@ -38,6 +38,7 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
     private ValidCheck validCheck;
     private ProgressDialog dialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +90,7 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
         dialog.setMessage("아이디를 찾는 중입니다...");
         dialog.show();
         if (validCheck.isWrited(sName, sEmail)) {       // 두 EditText 모두 기입할 시,
+            Log.e("goTOjoin", "goJoin");
             JoinDB joinDB = new JoinDB();
             joinDB.execute();
         }else
@@ -118,8 +120,9 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
                 conn.setDoInput(true);
+                Log.e("COnnET", "connect1");
                 conn.connect();
-
+                Log.e("COnnET", "connect2");
                 OutputStream outs = conn.getOutputStream();
                 outs.write(param.getBytes("UTF-8"));
                 outs.flush();
@@ -137,6 +140,7 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
                     buff.append(line + "\n");
                 }
                 data = buff.toString().trim();
+                Log.e("DATA", data);
                 if (data.equals(""))                  // php를 통해 값이 아무 것도 오지 않을 경우
                     Log.e("RESULT", "Fail - " + data);
                 else                                // 아이디를 불러올 경우
@@ -154,6 +158,7 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
             super.onPostExecute(aVoid);
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(FindidActivity.this);    // 팝업창 생성
             if (data.equals("")) {                    // 값이 돌아오지 않을 경우 경고 팝업창
+                dialog.dismiss();
                 alertBuilder
                         .setTitle("알림")
                         .setMessage("회원 정보 없음")
@@ -168,6 +173,7 @@ public class FindidActivity extends AppCompatActivity implements View.OnClickLis
                 dialog.show();
                 text_id.setText("");
             } else {                               // 아이디를 받아올 경우
+                dialog.dismiss();
                 Toast.makeText(FindidActivity.this, "회원정보를 찾았습니다.", Toast.LENGTH_SHORT).show();
                 text_id.setText(data);
             }

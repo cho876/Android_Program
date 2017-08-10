@@ -125,7 +125,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected Void doInBackground(Void... unused) {          // Background 내부 처리
-            String param = "u_name=" + sName + "&u_email=" + sEmail + "&u_id=" + sId + "&u_pw=" + sPw + "";
+            String param = "u_name=" + sName + "&u_email=" + sEmail + "&u_id=" + sId + "&u_pw=" + sPw + "";    // 사용자가 기입한 값을 저장한 변수
             try {
                 URL url = new URL(
                         "http://211.253.25.169/Join.php");
@@ -170,7 +170,6 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(aVoid);
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(JoinActivity.this);     // 알람 팝업창 생성
             if (data.equals("1")) {       // DB 저장 완료 성공 시,
-                Log.e("111", "111");
                 Intent go_setting = new Intent(JoinActivity.this, SettingActivity.class);
                 startActivity(go_setting);
             } else {                     // DB 저장 완료 실패 시,

@@ -33,7 +33,7 @@ public class FindpwActivity extends AppCompatActivity implements View.OnClickLis
     private Button bLeft, bRight, bSearch;
     private String sId, sEmail;
     private EditText ed_id, ed_email;
-    private TextView t_pw;
+    private TextView tv_pw;
     private CustomButton customButton;
     private ValidCheck validCheck;
     private ProgressDialog dialog;
@@ -49,7 +49,7 @@ public class FindpwActivity extends AppCompatActivity implements View.OnClickLis
         ed_email = (EditText) findViewById(R.id.findPw_Email);      // 이메일 작성 란
         ed_id = (EditText) findViewById(R.id.findPw_Id);        // 이름 작성 란
 
-        t_pw = (TextView) findViewById(R.id._findpw_search);                // 검색 결과 란
+        tv_pw = (TextView) findViewById(R.id._findpw_search);                // 검색 결과 란
         bSearch = (Button) findViewById(R.id.searchpw_btn);                // 비밀번호 찾기 버튼
         bSearch.setOnClickListener(this);
 
@@ -153,6 +153,7 @@ public class FindpwActivity extends AppCompatActivity implements View.OnClickLis
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(FindpwActivity.this);
+            dialog.dismiss();
             if (data.equals("")) {
                 alertBuilder
                         .setTitle("알림")
@@ -166,10 +167,11 @@ public class FindpwActivity extends AppCompatActivity implements View.OnClickLis
                         });
                 AlertDialog dialog = alertBuilder.create();
                 dialog.show();
-                t_pw.setText("");
+                tv_pw.setText("");
             } else {
+                dialog.dismiss();
                 Toast.makeText(FindpwActivity.this, "회원정보를 찾았습니다.", Toast.LENGTH_SHORT).show();
-                t_pw.setText(data);
+                tv_pw.setText(data);
             }
         }
     }
