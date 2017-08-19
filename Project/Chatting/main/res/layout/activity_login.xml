@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE3EE"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.cho.between.LoginActivity">
+
+    <!-- 상단부 Title -->
+
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center"
+        android:text="BETWEEN"
+        android:textColor="#FF9E9B"
+        android:textSize="50sp" />
+
+    <!-- 중단부 로그인 창 -->
+
+    <LinearLayout
+        android:id="@+id/login_center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <!-- 이메일 입력 란 -->
+        <com.example.cho.between.Custom_ClearEditText
+            android:id="@+id/login_email"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/xml_roundedit"
+            android:hint="이메일"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            android:textColor="#FF9E9B"
+            android:textColorHint="#d2d2d2"
+            android:textSize="15sp" />
+
+        <!-- 비밀번호 입력 란 -->
+        <com.example.cho.between.Custom_ClearEditText
+            android:id="@+id/login_pw"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/xml_roundedit"
+            android:drawableLeft="@drawable/vec_pw"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            android:textColor="#FF9E9B"
+            android:textColorHint="#d2d2d2"
+            android:textSize="15sp" />
+
+        <!-- 아이디 저장 체크 란 -->
+        <CheckBox
+            android:id="@+id/login_chk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="아이디 저장"
+            android:textColor="#FF607F" />
+
+        <!-- 로그인 버튼 -->
+        <Button
+            android:id="@+id/login_login"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/xml_roundbtn"
+            android:gravity="center"
+            android:text="로그인"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- 하단부 버튼 -->
+
+    <LinearLayout
+        android:id="@+id/login_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center">
+
+        <!-- 회원가입 버튼 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/xml_roundedit"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/login_join"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="8"
+                android:background="#FFCAD5"
+                android:scaleType="fitCenter"
+                android:src="@drawable/vec_add" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:text="회원가입"
+                android:textColor="#FF607F" />
+        </LinearLayout>
+
+        <!-- 아이디 찾기 버튼 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/xml_roundedit"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/login_findId"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="8"
+                android:background="#FFCAD5"
+                android:scaleType="fitCenter"
+                android:src="@drawable/vec_findid" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:text="아이디 찾기"
+                android:textColor="#FF607F" />
+        </LinearLayout>
+
+        <!-- 비밀번호 찾기 버튼 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/xml_roundedit"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/login_findPw"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="8"
+                android:background="#FFCAD5"
+                android:scaleType="fitCenter"
+                android:src="@drawable/vec_findpw" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:text="비밀번호 찾기"
+                android:textColor="#FF607F" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
