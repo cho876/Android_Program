@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 하단부 Button란 Custom View XML -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_custom_button"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.example.cho.haneum.CustomButton">
+
+    <Button
+        android:id="@+id/button_left"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="@drawable/round_shape"
+        android:drawableLeft="@drawable/cancer_btn"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_right"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="50dp"
+        android:layout_weight="1"
+        android:background="@drawable/round_shape"
+        android:drawableLeft="@drawable/findinfo_btn"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</LinearLayout>
