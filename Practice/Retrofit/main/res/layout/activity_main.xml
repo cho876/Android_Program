@@ -8,14 +8,17 @@
     tools:context="com.example.cho.retrofit.MainActivity">
 
     <TextView
-        android:id="@+id/test"
+        android:id="@+id/test1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="문구" />
+        android:text="문구"
+        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btn"
+    <TextView
+        android:id="@+id/test2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="누르셈"/>
+        android:text="문구"
+        android:textSize="20sp" />
+
 </LinearLayout>
