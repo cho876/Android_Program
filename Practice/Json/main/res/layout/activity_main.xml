@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.cho.json.MainActivity">
+
+    <EditText
+        android:id="@+id/id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID 입력..." />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="이름 입력..." />
+
+    <EditText
+        android:id="@+id/pw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="패스워드 입력..." />
+
+    <Button
+        android:id="@+id/btn_to_server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Json 변환 및 서버로 보내기" />
+
+    <TextView
+        android:id="@+id/resultConverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="변환 결과값" />
+
+    <Button
+        android:id="@+id/btn_to_client"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서버에서 받아온 Json 파싱" />
+
+    <TextView
+        android:id="@+id/resultParsing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="변환 결과값" />
+
+</LinearLayout>
