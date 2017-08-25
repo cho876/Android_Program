@@ -1,0 +1,8 @@
+{
+	"fruit":{
+		"apple":"3000",
+		"banana":"2000",
+		"watermelon":"100",
+		"peach":"50000"
+	}
+}

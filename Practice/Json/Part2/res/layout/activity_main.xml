@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.cho.json.MainActivity">
+
+    <Button
+        android:id="@+id/btn_to_assets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="파일 불러오기" />
+
+    <TextView
+        android:id="@+id/txt_in_assets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="불러온 데이터" />
+
+    <EditText
+        android:id="@+id/edit_fruit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="(apple, banana, watermelon, peach"/>
+    <Button
+        android:id="@+id/btn_to_client"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서버에서 받아온 Json 파싱" />
+
+    <TextView
+        android:id="@+id/txt_in_server"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="불러온 과일 가격 값" />
+
+</LinearLayout>
