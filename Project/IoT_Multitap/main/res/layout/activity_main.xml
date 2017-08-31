@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6FFE6"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.cho.multitab.MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:text="SMART TAP"
+        android:textColor="#52E252"
+        android:textSize="40sp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:columnCount="2"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:rowCount="2">
+
+        <Button
+            android:id="@+id/btn_power"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_rowWeight="1"
+            android:background="@drawable/round_box"
+            android:drawableTop="@drawable/vec_power"
+            android:gravity="center"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:text="On / Off"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_timer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="20dp"
+            android:layout_rowWeight="1"
+            android:background="@drawable/round_box"
+            android:drawableTop="@drawable/vec_timer"
+            android:gravity="center"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:text="타이머 설정"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_marginRight="20dp"
+            android:layout_rowWeight="1"
+            android:background="@drawable/round_box"
+            android:drawableTop="@drawable/vec_what"
+            android:gravity="center"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:text="기능??"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:background="@drawable/round_box"
+            android:drawableTop="@drawable/vec_exit"
+            android:gravity="center"
+            android:padding="10dp"
+            android:scaleType="fitXY"
+            android:text="나가기"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+    </GridLayout>
+</LinearLayout>
