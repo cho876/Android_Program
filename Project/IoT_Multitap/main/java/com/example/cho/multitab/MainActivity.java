@@ -8,13 +8,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.tsengvn.typekit.TypekitContextWrapper;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button bPower, bTimer, bWhat, bExit;
+    private ButtonCustom custombtn_power, custombtn_timer, custombtn_what, custombtn_exit;
     private long backKeyPressedTime = 0;
     private Toast toast;
 
@@ -25,34 +26,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
     }
 
+    /**
+     * UI 초기화
+     */
     private void initView() {
-        bPower = (Button) findViewById(R.id.btn_power);
-        bPower.setOnClickListener(this);
-        bTimer = (Button) findViewById(R.id.btn_timer);
-        bTimer.setOnClickListener(this);
-        bWhat = (Button) findViewById(R.id.btn1);
-        bWhat.setOnClickListener(this);
-        bExit = (Button) findViewById(R.id.btn_exit);
-        bExit.setOnClickListener(this);
+        custombtn_power = (ButtonCustom) findViewById(R.id.custom_button_power);
+        custombtn_power.setOnClickListener(this);
+        custombtn_timer = (ButtonCustom) findViewById(R.id.custom_button_timer);
+        custombtn_timer.setOnClickListener(this);
+        custombtn_what = (ButtonCustom) findViewById(R.id.custom_button_what);
+        custombtn_what.setOnClickListener(this);
+        custombtn_exit = (ButtonCustom) findViewById(R.id.custom_button_exit);
+        custombtn_exit.setOnClickListener(this);
     }
 
+    /**
+     * 버튼 종류:
+     * - On/Off (콘센트 제어)
+     * - 타이머 설정
+     * - 준비 중
+     * - 나가기
+     *
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_power:
+            case R.id.custom_button_power:
                 Intent intent = new Intent(this, PowerActivity.class);
                 startActivity(intent);
                 break;
 
-            case R.id.btn_timer:
+            case R.id.custom_button_timer:
                 Toast.makeText(getApplicationContext(), "타이머 설정", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.btn1:
+            case R.id.custom_button_what:
                 Toast.makeText(getApplicationContext(), "서비스 준비 중...", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.btn_exit:
+            case R.id.custom_button_exit:
                 onBackPressed();
                 break;
         }

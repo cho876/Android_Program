@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="SMART TAB"
+        android:text="SMART TAP"
         android:textColor="#E6FFE6"
         android:textSize="30sp" />
 </LinearLayout>

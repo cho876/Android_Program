@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cho.multitab">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".FontCustom"
         android:allowBackup="true"
@@ -23,6 +25,7 @@
         <activity
             android:name=".PowerActivity"
             android:theme="@style/AppTheme" />
+        <activity android:name=".ButtonCustom"></activity>
     </application>
 
 </manifest>

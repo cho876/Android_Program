@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Custom Button (Main Activity) -->
+    <declare-styleable name="ButtonCustom">
+        <attr name="buttonText" format="string"/>
+        <attr name="buttonSymbol" format="reference|integer"/>
+    </declare-styleable>
+</resources>
