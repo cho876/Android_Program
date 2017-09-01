@@ -1,0 +1,24 @@
+<?php
+        include_once 'Config.php';  // DB information in 'Config.php'
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PW, DB_NAME);   // Connect DB
+        mysqli_query($conn, "SET NAMES UTF8");
+
+        $sql = "SELECT * FROM MemDB";         // Query sentence
+        $result = mysqli_query($conn, $sql);
+        $resultArray = array();
+
+        if($result){
+                while($row = mysqli_fetch_assoc($result)){
+                        array_push(                                // Make JsonObject
+                                $resultArray, array(
+                                'userID' => $row['userID'],
+                                'userEmail' => $row['userEmail'],
+                                'userName' => $row['userName'],
+                                'userPW' => $row['userPW']
+                                )
+                        );
+                }
+                echo json_encode($resultArray);
+        }
+        mysqli_close($conn);
+?>
