@@ -1,0 +1,17 @@
+<?php
+        $consent1 = $_POST["consent1"];       // consent1's status
+        $consent2 = $_POST["consent2"];       // consent1's status
+        $consent3 = $_POST["consent3"];       // consent1's status
+        $consent4 = $_POST["consent4"];       // consent1's status
+
+        include_once 'prac_config.php';       // DB information in 'prac_config.php'
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PW, DB_NAME);    // Connect DB
+
+        $sql = "UPDATE status SET consent1 = $consent1, consent2 = $consent2, consent3 = $consent3, consent4 = $consent4";
+        $result = mysqli_query($conn, $sql);
+
+        $response = array();                   // For make JsonObject
+        $response["success"] = true;           // "success":true
+
+        echo json_encode($response);
+?>
