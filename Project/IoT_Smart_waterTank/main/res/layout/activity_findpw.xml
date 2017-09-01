@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 비밀번호 찾기 XML -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_findpw"
+    style="@style/layout_top"
+    tools:context="com.example.cho.haneum.FindPWActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_shape_inside"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- 상단부 Title 란 Custom View -->
+        <com.example.cho.haneum.CustomTitle
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            app:title_symbol="@drawable/findpw"
+            app:title_text="비밀번호 찾기" />
+
+        <!-- 중단부 LinearLayout -->
+        <LinearLayout style="@style/layout_mid">
+
+            <!-- 이메일 기입란 -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/findPw_Email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="이메일을 입력해주세요..."
+                    android:inputType="textEmailAddress" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- 아이디 기입란 Custom View -->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/findPw_Id"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="아이디를 입력해주세요..."
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
+
+            <!-- 확인 버튼 -->
+            <Button
+                android:id="@+id/searchpw_btn"
+                style="@style/btn_style" />
+
+            <!-- 비밀번호 찾기 결과 창 -->
+            <TextView
+                android:id="@+id/_findpw_search"
+                style="@style/search_style"
+                android:text="(비밀번호 확인 결과란)" />
+        </LinearLayout>
+
+        <!-- 하단부 버튼란 Custom View -->
+        <com.example.cho.haneum.CustomButton
+            android:id="@+id/custom_findPw_btn"
+            style="@style/layout_bottom"
+            app:btn_left_img="@drawable/cancer_btn"
+            app:btn_left_text="돌아가기"
+            app:btn_right_img="@drawable/findinfo_btn"
+            app:btn_right_text="아이디\n찾기" />
+    </LinearLayout>
+</LinearLayout>
