@@ -1,0 +1,26 @@
+<?php
+        include_once 'Config.php';     // DB information in 'Config.php'
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PW, DB_NAME);   // Connect DB
+        mysqli_query($conn, "SET NAMES UTF8");
+
+        $sql = "SELECT * FROM CurDB";           // Query sentence
+        $result = mysqli_query($conn, $sql);
+
+
+        if($result){
+                while($row = mysqli_fetch_array($result)){
+                        $resultArray = array(                    // Make JsonObject
+                                'setTemp' => $row['setTemp'],
+                                'setTurb' => $row['setTurb'],
+                                'curTemp' => $row['curTemp'],
+                                'curTurb' => $row['curTurb'],
+                                'ctlLevel' => $row['ctlLevel'],
+                                'ctlHeat' => $row['ctlHeat'],
+                                'ctlIn' => $row['ctlIn'],
+                                'ctlOut' => $row['ctlOut']
+                        );
+                        echo json_encode($resultArray);
+                }
+        }
+        mysqli_close($conn);
+?>
