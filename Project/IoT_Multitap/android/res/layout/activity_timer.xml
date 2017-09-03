@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_timer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6FFE6"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.cho.multitab.TimerActivity">
+
+    <TimePicker
+        android:id="@+id/timepicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_box_white"
+        android:padding="10dp"
+        android:timePickerMode="spinner" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_consent1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="콘센트 1"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_consent1_reserve"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="오전 06:18"
+                android:textSize="20sp" />
+
+            <ToggleButton
+                android:id="@+id/timer_toggle_consent_1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/poweroff"
+                android:gravity="bottom|center_horizontal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_consent2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="콘센트 2"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_consent2_reserve"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="오전 06:18"
+                android:textSize="20sp" />
+
+            <ToggleButton
+                android:id="@+id/timer_toggle_consent_2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/poweroff"
+                android:gravity="bottom|center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_consent3_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="콘센트 3"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_consent3_reserve"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="오전 06:18"
+                android:textSize="20sp" />
+
+            <ToggleButton
+                android:id="@+id/timer_toggle_consent_3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/poweroff"
+                android:gravity="bottom|center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_consent4_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="콘센트 4"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/text_consent4_reserve"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="오전 06:18"
+                android:textSize="20sp" />
+
+            <ToggleButton
+                android:id="@+id/timer_toggle_consent_4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/poweroff"
+                android:gravity="bottom|center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
