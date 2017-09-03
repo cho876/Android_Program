@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_power"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#64CD3C"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context="com.example.cho.multitab.PowerActivity">
+
+    <!-- 1, 2번 콘센트 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <!-- 1번 콘센트 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_box_green"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txt_consent_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="1번 콘센트"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <ToggleButton
+                android:id="@+id/toggle_consent_1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/poweroff"
+                android:gravity="bottom|center_horizontal" />
+        </LinearLayout>
+
+        <!-- 2번 콘센트 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/round_box_green"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txt_consent_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="2번 콘센트"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <ToggleButton
+                android:id="@+id/toggle_consent_2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/poweroff"
+                android:gravity="bottom|center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 3, 4번 콘센트 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <!-- 3번 콘센트 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_box_green"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txt_consent_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="3번 콘센트"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <ToggleButton
+                android:id="@+id/toggle_consent_3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/poweroff"
+                android:gravity="bottom|center_horizontal" />
+        </LinearLayout>
+
+        <!-- 4번 콘센트 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/round_box_green"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txt_consent_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="4번 콘센트"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <ToggleButton
+                android:id="@+id/toggle_consent_4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/poweroff"
+                android:gravity="bottom|center_horizontal" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
