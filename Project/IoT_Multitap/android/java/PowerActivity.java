@@ -49,10 +49,6 @@ public class PowerActivity extends AppCompatActivity {
 
         switchController = new SwitchController(this, toggle_consent1, toggle_consent2, toggle_consent3, toggle_consent4);
         switchController.checkSwitchStatus();
-
-        joinDbThread = new JoinDbThread(this, registerRequest);
-        joinDbThread.setDaemon(true);
-        joinDbThread.start();
     }
 
     /**
