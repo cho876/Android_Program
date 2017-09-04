@@ -19,6 +19,8 @@ public class SwitchController {
     private Activity activity;
     private ToggleButton toggleFirst, toggleSecond, toggleThird, toggleFourth;
     private SharedPreferenceGetSet sharedPreferenceGetSet;
+    private RegisterRequest registerRequest;
+
 
     /**
      * Switch 제어 Class 초기화
@@ -45,6 +47,8 @@ public class SwitchController {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 changeDrawable(toggleFirst);
                 saveSharedPrefence(activity, 1, isChecked);
+                if (activity.getClass().equals(PowerActivity.class))
+                    joinDB(activity, 1);
             }
         });
 
@@ -53,6 +57,8 @@ public class SwitchController {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 changeDrawable(toggleSecond);
                 saveSharedPrefence(activity, 2, isChecked);
+                if (activity.getClass().equals(PowerActivity.class))
+                    joinDB(activity, 2);
             }
         });
 
@@ -61,6 +67,8 @@ public class SwitchController {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 changeDrawable(toggleThird);
                 saveSharedPrefence(activity, 3, isChecked);
+                if (activity.getClass().equals(PowerActivity.class))
+                    joinDB(activity, 3);
             }
         });
 
@@ -68,9 +76,18 @@ public class SwitchController {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 changeDrawable(toggleFourth);
-                saveSharedPrefence(activity, 1, isChecked);
+                saveSharedPrefence(activity, 4, isChecked);
+                if (activity.getClass().equals(PowerActivity.class))
+                    joinDB(activity, 4);
             }
         });
+    }
+
+    private void joinDB(Activity activity, int index) {
+        JoinDbThread joinDbThread = new JoinDbThread(activity, registerRequest);
+        joinDbThread.setDaemon(true);
+        joinDbThread.setIndex(index);
+        joinDbThread.run();
     }
 
     /**
