@@ -27,6 +27,7 @@ public class AlarmMaker {
     public void setAlarm(int index, int hour, int min) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, BroadcastR.class);
+        intent.putExtra("index", index);
         PendingIntent sender = PendingIntent.getBroadcast(context, index, intent, 0);
         Calendar calendar = Calendar.getInstance();
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), hour, min, 0);
