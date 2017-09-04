@@ -17,21 +17,17 @@ public class RegisterRequest extends StringRequest {
     /**
      * POST 방식을 통한 매개변수 데이터 전송
      *
-     * @param consentState1 1번 콘센트 On/Off 상태
-     * @param consentState2 2번 콘센트 On/Off 상태
-     * @param consentState3 3번 콘센트 On/Off 상태
-     * @param consentState4 4번 콘센트 On/Off 상태
-     * @param listener      Response.Listener (서버로부터 되돌아오는 Response)
+     * @param consentName  n번째 콘센트
+     * @param consentState n번째 콘센트 On / Off 상태
+     * @param listener     Response.Listener (서버로부터 되돌아오는 Response)
      */
-    public RegisterRequest(boolean consentState1, boolean consentState2, boolean consentState3, boolean consentState4,
+    public RegisterRequest(String consentName, boolean consentState,
                            Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         parameters = new HashMap<>();
-        parameters.put("consent1", consentState1 + "");
-        parameters.put("consent2", consentState2 + "");
-        parameters.put("consent3", consentState3 + "");
-        parameters.put("consent4", consentState4 + "");
+        parameters.put("consent", consentName + "");
+        parameters.put("status", consentState + "");
     }
 
     @Override
