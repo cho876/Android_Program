@@ -1,0 +1,32 @@
+<?php
+        $db_host = "192.168.0.4";
+        $db_user = "root";
+        $db_passwd = "qwerty1";
+        $db_name = "carrier";
+
+        $conn = mysqli_connect($db_host, $db_user, $db_passwd, $db_name);
+
+        if(!$conn){
+                echo "DB Connect Fail";
+        }
+        else{
+                mysql_query($conn, "SET NAMES UTF8");
+                $sql = "SELECT * FROM carrier_info";
+                $result = mysqli_query($conn, $sql);
+
+                if(!$result){
+                        echo "SQL FAIL";
+                }
+                else{
+                        while($row = mysqli_fetch_array($result)){
+                                $resultArray = array(
+                                        'weight'=>$row['weight'],
+                                        'distance'=>$row['distance'],
+                                        'speed'=>$row['speed']
+                                );
+                                echo json_encode($resultArray);
+                        }
+                }
+        }
+        mysqli_close($conn);
+?>
