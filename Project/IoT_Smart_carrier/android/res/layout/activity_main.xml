@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.skcho.smartcarrier.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_shape_inside"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- ?곷떒遺 Title ? Custom View -->
+        <com.example.skcho.smartcarrier.CustomTitle
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            app:title_symbol="@drawable/basket_img"
+            app:title_text="나의 쇼핑카트" />
+
+        <LinearLayout style="@style/layout_mid">
+
+            <com.example.skcho.smartcarrier.CustomTable
+                android:id="@+id/custom_main_weight"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:table_img="@drawable/weight_img"
+                app:table_title="무게" />
+
+            <com.example.skcho.smartcarrier.CustomTable
+                android:id="@+id/custom_main_distance"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:table_img="@drawable/distance_img"
+                app:table_title="거리" />
+
+            <com.example.skcho.smartcarrier.CustomTable
+                android:id="@+id/custom_main_speed"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:table_img="@drawable/speed_img"
+                app:table_title="속도" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/view_float_chart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="144dp"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:elevation="6dp"
+        android:src="@drawable/memo_vec"
+        android:visibility="invisible"
+        app:backgroundTint="#FFBCB9"
+        app:pressedTranslationZ="12dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/view_float_memo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:elevation="6dp"
+        android:src="@drawable/memo_vec"
+        android:visibility="invisible"
+        app:backgroundTint="#FF98A3"
+        app:pressedTranslationZ="12dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/view_float_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:elevation="6dp"
+        android:src="@drawable/plus_vec"
+        app:backgroundTint="#FF5675"
+        app:pressedTranslationZ="12dp" />
+</android.support.design.widget.CoordinatorLayout>

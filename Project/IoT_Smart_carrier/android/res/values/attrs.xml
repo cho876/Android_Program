@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TitleAttrs">
+        <attr name="title_text" format="string" />
+        <attr name="title_symbol" format="reference|integer" />
+        <attr name="title_textSize" format="reference|integer" />
+    </declare-styleable>
+
+    <declare-styleable name="TableAttrs">
+        <attr name="table_img" format="reference|integer" />
+        <attr name="table_title" format="string" />
+        <attr name="table_contents" format="string" />
+    </declare-styleable>
+
+</resources>

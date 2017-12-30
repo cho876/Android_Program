@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_shape_inside"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- ?곷떒遺 Title ? Custom View -->
+        <com.example.cho.smartcarrier.CustomTitle
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            app:title_symbol="@drawable/memo_img"
+            app:title_text="ㅇㅇㅇ" />
+
+        <LinearLayout style="@style/layout_mid">
+
+            <LinearLayout
+                android:id="@+id/linear_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnPlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/list"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/list"
+                    android:text="추가" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:name="com.veryworks.android.bbsbasic.ListFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/linear_btn"
+                app:layoutManager="LinearLayoutManager"
+                tools:context="com.veryworks.android.bbsbasic.ListFragment"
+                tools:listitem="@layout/layout_list_item" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
