@@ -1,9 +1,9 @@
 package com.example.skcho.smartcarrier;
 
 /**
- * Created by skCho on 2017-12-28.
- * <p>
- * Set Custom Table Class
+ * Created by skCho on 2017-01-07.
+ * 
+ * Set custom table frame
  */
 
 import android.content.Context;
