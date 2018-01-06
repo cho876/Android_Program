@@ -15,7 +15,7 @@ public interface RetrofitService {
     Call<CartDAO> getData();
 
     public static final Retrofit gitRetrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.0.4")
+            .baseUrl("http://192.168.0.6")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }
