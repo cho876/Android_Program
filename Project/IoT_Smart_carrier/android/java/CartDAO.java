@@ -7,9 +7,9 @@ package com.example.skcho.smartcarrier;
  */
 
 public class CartDAO {
-    private String speed;
-    private String distance;
-    private String weight;
+    private String speed;       // Cart speed
+    private String distance;   //  Distance between cart and yourself
+    private String weight;    // Weight inside cart
 
     public String getDistance() {
         return distance;
