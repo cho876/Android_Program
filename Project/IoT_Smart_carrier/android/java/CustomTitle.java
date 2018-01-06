@@ -16,10 +16,11 @@ import android.widget.TextView;
 import org.w3c.dom.Attr;
 
 /**
- * Created by skCho on 2017-12-30.
+ * Created by skCho on 2017-01-07.
  *
- * Set Custom Title Class
+ * Set custom title frame (UI)
  */
+
 public class CustomTitle extends LinearLayout {
 
     ImageView iv_img;
