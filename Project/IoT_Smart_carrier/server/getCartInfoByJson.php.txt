@@ -1,5 +1,5 @@
 <?php
-        $db_host = "192.168.0.4";
+        $db_host = "192.168.0.6";
         $db_user = "root";
         $db_passwd = "qwerty1";
         $db_name = "carrier";
@@ -22,7 +22,8 @@
                                 $resultArray = array(
                                         'weight'=>$row['weight'],
                                         'distance'=>$row['distance'],
-                                        'speed'=>$row['speed']
+                                        'speed'=>$row['speed'],
+                                        'rssi'=>$row['rssi']
                                 );
                                 echo json_encode($resultArray);
                         }
