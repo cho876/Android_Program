@@ -8,7 +8,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Cho on 2017-12-17.
+ * Created by Cho on 2017-01-07
+ *
+ *  Asynchronous data reception via Retrofit communication.
  */
 
 public class RetrofitConnect {
