@@ -1,11 +1,10 @@
 package com.example.skcho.smartcarrier;
 
 /**
- * Created by skCho on 2017-12-28.
+ * Created by skCho on 2017-01-07.
  * <p>
- * Set Custom Font Class
+ * Set custom font
  */
-
 import android.app.Application;
 
 import com.tsengvn.typekit.Typekit;
