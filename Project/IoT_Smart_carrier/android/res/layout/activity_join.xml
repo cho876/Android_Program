@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_join"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:background="#dcdcdc"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.example.skcho.smartcarrier.JoinActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_shape_inside"
+        android:orientation="vertical">
+
+        <!-- 상단부 Title 란 Custom View -->
+        <com.example.skcho.smartcarrier.CustomTitle
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            app:title_symbol="@drawable/join_vec"
+            app:title_text="나의 쇼핑카트" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:background="@drawable/round_shape"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/round_shape_inside"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <EditText
+                    android:id="@+id/join_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/round_shape"
+                    android:drawableLeft="@drawable/fill_pw_vec"
+                    android:drawableStart="@drawable/fill_pw_vec"
+                    android:gravity="center"
+                    android:hint="이름을 입력하세요."
+                    android:inputType="textPassword"
+                    android:padding="5dp"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/join_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="3"
+                    android:background="@drawable/round_shape"
+                    android:drawableLeft="@drawable/fill_id_vec"
+                    android:drawableStart="@drawable/fill_id_vec"
+                    android:gravity="center"
+                    android:hint="아이디를 입력하세요."
+                    android:inputType="text"
+                    android:padding="5dp"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/join_pw"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/round_shape"
+                    android:drawableLeft="@drawable/fill_pw_vec"
+                    android:drawableStart="@drawable/fill_pw_vec"
+                    android:gravity="center"
+                    android:hint="비밀번호를 입력하세요."
+                    android:inputType="textPassword"
+                    android:padding="5dp"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/join_pwchk"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/round_shape"
+                    android:drawableLeft="@drawable/fill_pw_vec"
+                    android:drawableStart="@drawable/fill_pw_vec"
+                    android:gravity="center"
+                    android:hint="비밀번호를 입력하세요."
+                    android:inputType="textPassword"
+                    android:padding="5dp"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 하단부 버튼란 Custom View -->
+        <com.example.skcho.smartcarrier.CustomButton
+            android:id="@+id/custom_join_btn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            app:btn_left_img="@drawable/left_vec"
+            app:btn_left_txt="돌아가기"
+            app:btn_right_img="@drawable/left_vec"
+            app:btn_right_txt="확인" />
+    </LinearLayout>
+</LinearLayout>
