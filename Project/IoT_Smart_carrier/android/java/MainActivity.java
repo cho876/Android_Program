@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog dialog;
     private RetrofitConnect retrofitConnect;
     private CustomTable customTable;
-    private FloatingActionButton fb_on, fb_chart, fb_memo;
+    private FloatingActionButton fb_on, fb_map, fb_memo, fb_manual;
     private FabUtils fabUtils;
     private QuitHandler quitHandler;
     boolean isOpen = false;
@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toast.makeText(getApplicationContext(), "자동 모드 실행 중", Toast.LENGTH_SHORT).show();
 
         beaconManager = new BeaconManager(this);
         beaconCtl = new BeaconCtl(this.getApplicationContext(), MainActivity.this, beaconManager);
@@ -72,10 +74,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         fb_on = (FloatingActionButton) findViewById(R.id.view_float_on);
-        fb_chart = (FloatingActionButton) findViewById(R.id.view_float_chart);
+        fb_map = (FloatingActionButton) findViewById(R.id.view_float_map);
         fb_memo = (FloatingActionButton) findViewById(R.id.view_float_memo);
+        fb_manual = (FloatingActionButton) findViewById(R.id.view_float_manual);
 
-        fabUtils = new FabUtils(this, fb_on, fb_chart, fb_memo, isOpen);
+        fabUtils = new FabUtils(this, fb_on, fb_map, fb_memo, fb_manual, isOpen);
         fabUtils.clickFab();
 
         dialog = new ProgressDialog(this);
