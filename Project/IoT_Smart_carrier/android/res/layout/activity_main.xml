@@ -56,14 +56,14 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/view_float_chart"
+        android:id="@+id/view_float_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="144dp"
+        android:layout_marginBottom="210dp"
         android:layout_marginRight="@dimen/fab_margin_right"
         android:elevation="6dp"
-        android:src="@drawable/memo_vec"
+        android:src="@drawable/map_vec"
         android:visibility="invisible"
         app:backgroundTint="#FFBCB9"
         app:pressedTranslationZ="12dp" />
@@ -73,10 +73,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="144dp"
         android:layout_marginRight="@dimen/fab_margin_right"
         android:elevation="6dp"
         android:src="@drawable/memo_vec"
+        android:visibility="invisible"
+        app:backgroundTint="#FF98A3"
+        app:pressedTranslationZ="12dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/view_float_manual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:elevation="6dp"
+        android:src="@drawable/manual_vec"
         android:visibility="invisible"
         app:backgroundTint="#FF98A3"
         app:pressedTranslationZ="12dp" />
