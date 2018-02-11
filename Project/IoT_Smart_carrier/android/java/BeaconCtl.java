@@ -123,7 +123,7 @@ public class BeaconCtl {
             String param = "u_rssi=" + params[0] + "";    // 사용자가 기입한 값을 저장한 변수
             try {
                 URL url = new URL(
-                        "http://192.168.1.104/getRssi.php");
+                        "http://192.168.0.5/send_rssi.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
